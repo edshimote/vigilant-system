@@ -1,0 +1,5 @@
+Abra o arquivo index.html para a página inicial ou dashboard.html para a área do aluno.
+
+IMPORTANTE: extraia a pasta inteira do ZIP antes de abrir os arquivos, para que os links entre páginas funcionem.
+
+Nesta versão, dashboard.html, perfil.html, diagnostico.html, trilha.html e planner.html estão com CSS e JS embutidos, então cada página abre corretamente mesmo sem os arquivos compartilhados ao lado.

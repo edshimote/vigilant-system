@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <!-- self-contained dashboard page -->
+  <meta charset="UTF-8" />
+  <script src="auth-guard.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Security headers via meta -->
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <meta http-equiv="X-Frame-Options" content="DENY" />
+  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
+  <title>Lumié — Chat</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --gold:#F6DAAE;
+      --gold-soft:#F8ECD5;
+      --gold-dim:#D3B78C;
+      --bronze:#BD8F58;
+      --border:#3A2D24;
+      --bg-main:#050307;
+      --bg-sec:#0D0911;
+      --card:#15101A;
+      --card-hi:#1E1724;
+      --text-main:#FDF5E2;
+      --text-sec:#D8C9B0;
+      --danger:#F4A9A9;
+      --success:#C6D9B1;
+      --radius:18px;
+      --radius-sm:12px;
+      --shadow:0 20px 60px rgba(0,0,0,.35);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:'Inter',system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+      color:var(--text-main);
+      background:
+        radial-gradient(circle at 12% 10%, rgba(246,218,174,.08), transparent 28%),
+        radial-gradient(circle at 84% 86%, rgba(189,143,88,.08), transparent 26%),
+        linear-gradient(145deg, rgba(255,255,255,.02) 1px, transparent 1px),
+        var(--bg-main);
+      background-size:auto, auto, 72px 72px, auto;
+      min-height:100vh;
+    }
+    button,input,textarea,select{font:inherit}
+    .app{
+      display:grid;
+      grid-template-columns:280px minmax(0,1fr);
+      min-height:100vh;
+    }
+
+    /* ── Sidebar ── */
+    .sidebar{
+      background:var(--bg-sec);
+      border-right:1px solid var(--border);
+      padding:28px 20px;
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+      position:sticky;
+      top:0;
+      height:100vh;
+      overflow-y:auto;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      text-decoration:none;
+      color:var(--text-main);
+      margin-bottom:28px;
+    }
+    .brand-mark{
+      width:42px;height:42px;
+      border-radius:14px;
+      background:linear-gradient(135deg,var(--gold),var(--bronze));
+      display:flex;align-items:center;justify-content:center;
+      font-weight:900;font-size:18px;color:#050307;
+      flex-shrink:0;
+    }
+    .brand small{display:block;color:var(--text-sec);font-size:.74rem}
+    .nav-link{
+      display:flex;align-items:center;justify-content:space-between;
+      padding:12px 16px;
+      border-radius:var(--radius-sm);
+      text-decoration:none;
+      color:var(--text-sec);
+      font-size:.88rem;font-weight:600;
+      transition:background .15s, color .15s;
+    }
+    .nav-link span:last-child{
+      font-size:.72rem;
+      opacity:.4;
+    }
+    .nav-link:hover,
+    .nav-link.active{
+      background:rgba(246,218,174,.08);
+      color:var(--gold);
+    }
+    .sidebar-footer{
+      margin-top:auto;
+      display:flex;flex-direction:column;gap:10px;
+      padding-top:20px;
+      border-top:1px solid var(--border);
+    }
+    .mini-status{
+      display:flex;justify-content:space-between;align-items:center;
+      font-size:.78rem;color:var(--text-sec);
+    }
+    .mini-status b{color:var(--gold);font-size:.82rem}
+
+    /* ── Buttons ── */
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;gap:8px;
+      padding:12px 22px;
+      border-radius:var(--radius-sm);
+      font-weight:700;font-size:.88rem;
+      cursor:pointer;border:none;
+      transition:all .18s;
+      text-decoration:none;
+    }
+    .btn-secondary{
+      background:rgba(246,218,174,.10);
+      border:1px solid rgba(246,218,174,.22);
+      color:var(--gold);
+    }
+    .btn-secondary:hover{background:rgba(246,218,174,.16);transform:translateY(-1px)}
+    .btn-ghost{
+      background:transparent;
+      border:1px solid rgba(255,255,255,.08);
+      color:var(--text-sec);
+    }
+    .btn-ghost:hover{background:rgba(255,255,255,.05);color:var(--text-main)}
+
+    /* ── Shell ── */
+    .shell{
+      padding:40px 44px;
+      max-width:900px;
+    }
+    .mobile-bar{
+      display:none;
+      align-items:center;justify-content:space-between;
+      padding:14px 18px;
+      background:var(--bg-sec);
+      border-bottom:1px solid var(--border);
+      margin-bottom:18px;
+    }
+    .mobile-brand{display:flex;align-items:center;gap:10px}
+    .mobile-brand strong{display:block}
+    .mobile-brand small{display:block;color:var(--text-sec)}
+    .mobile-menu{
+      background:none;border:1px solid var(--border);
+      color:var(--text-main);
+      padding:8px 12px;border-radius:10px;cursor:pointer;font-size:1.1rem;
+    }
+
+    /* ── Eyebrow + section-head ── */
+    .eyebrow{
+      font-size:.72rem;font-weight:700;
+      text-transform:uppercase;letter-spacing:.1em;
+      color:var(--gold-dim);
+    }
+    .section-head{
+      display:flex;align-items:flex-start;justify-content:space-between;
+      gap:18px;flex-wrap:wrap;
+      margin-bottom:28px;
+    }
+    .section-head h2,.section-head h3{margin:6px 0 8px;font-size:26px;line-height:1.25}
+    .section-head p{margin:0;color:var(--text-sec);font-size:.88rem;line-height:1.65;max-width:520px}
+
+    /* ── Chat tabs ── */
+    .chat-tabs{
+      display:flex;gap:12px;
+      margin-bottom:20px;
+      flex-wrap:wrap;
+    }
+    .chat-tab{
+      display:flex;flex-direction:column;align-items:flex-start;gap:2px;
+      padding:14px 22px;
+      border-radius:14px;
+      border:1px solid var(--border);
+      background:rgba(246,218,174,.03);
+      color:var(--text-sec);
+      cursor:pointer;
+      font-size:.9rem;font-weight:600;
+      transition:all .2s;
+    }
+    .chat-tab span{font-size:1.1rem}
+    .chat-tab small{font-size:.72rem;font-weight:400;color:var(--text-sec)}
+    .chat-tab:hover{background:rgba(246,218,174,.07);color:var(--text-main)}
+    .chat-tab.active{
+      background:rgba(246,218,174,.10);
+      border-color:rgba(246,218,174,.38);
+      color:var(--gold);
+    }
+    .chat-tab.active small{color:rgba(246,218,174,.6)}
+
+    /* ── Chat container ── */
+    .chat-container{
+      display:flex;flex-direction:column;gap:0;
+      border:1px solid var(--border);
+      border-radius:18px;overflow:hidden;
+      background:rgba(246,218,174,.02);
+    }
+    .chat-rules{
+      padding:12px 20px;font-size:.8rem;
+      color:var(--text-sec);
+      border-bottom:1px solid var(--border);
+      background:rgba(246,218,174,.02);
+    }
+    .chat-rules b{color:var(--text-main)}
+
+    /* ── Messages area ── */
+    .chat-messages{
+      display:flex;flex-direction:column;gap:10px;
+      padding:20px;
+      min-height:380px;max-height:480px;
+      overflow-y:auto;scroll-behavior:smooth;
+    }
+    .chat-messages::-webkit-scrollbar{width:4px}
+    .chat-messages::-webkit-scrollbar-track{background:transparent}
+    .chat-messages::-webkit-scrollbar-thumb{background:rgba(246,218,174,.15);border-radius:4px}
+
+    .chat-loading{
+      text-align:center;color:var(--text-sec);
+      font-size:.85rem;padding:40px 0;opacity:.6;
+    }
+
+    /* ── Messages ── */
+    @keyframes msgIn{
+      from{opacity:0;transform:translateY(6px) scale(.97)}
+      to{opacity:1;transform:translateY(0) scale(1)}
+    }
+    .chat-msg{
+      display:flex;flex-direction:column;
+      max-width:72%;gap:4px;
+      animation:msgIn .2s cubic-bezier(.4,0,.2,1) both;
+    }
+    .chat-msg.mine{align-self:flex-end;align-items:flex-end}
+    .chat-msg.theirs{align-self:flex-start;align-items:flex-start}
+
+    .msg-meta{
+      display:flex;gap:8px;align-items:baseline;
+      font-size:.72rem;
+    }
+    .msg-meta b{color:var(--text-main);font-weight:600}
+    .msg-meta span{color:var(--text-sec)}
+
+    .msg-bubble{
+      padding:10px 14px;border-radius:14px;
+      font-size:.88rem;line-height:1.5;
+      word-break:break-word;max-width:100%;
+    }
+    .chat-msg.mine .msg-bubble{
+      background:rgba(246,218,174,.14);
+      border:1px solid rgba(246,218,174,.28);
+      border-bottom-right-radius:4px;
+      color:var(--text-main);
+    }
+    .chat-msg.theirs .msg-bubble{
+      background:rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.10);
+      border-bottom-left-radius:4px;
+      color:var(--text-main);
+    }
+
+    /* ADM badge */
+    .chat-msg.adm-msg .msg-bubble{
+      background:rgba(198,217,177,.10);
+      border-color:rgba(198,217,177,.28);
+    }
+    .adm-badge{
+      display:inline-block;font-size:.65rem;font-weight:700;
+      padding:1px 6px;border-radius:6px;
+      background:rgba(198,217,177,.18);
+      color:var(--success);
+      border:1px solid rgba(198,217,177,.30);
+      vertical-align:middle;margin-left:4px;
+    }
+
+    /* DM / suporte bubbles */
+    .dm-bubble{
+      background:rgba(246,218,174,.07);
+      border:1px solid rgba(246,218,174,.18);
+      border-radius:10px;padding:8px 12px;
+      font-size:.83rem;margin-top:4px;
+    }
+    .dm-label{
+      font-size:.68rem;color:var(--success);
+      font-weight:700;margin-bottom:2px;
+    }
+
+    /* Member badge */
+    .member-id-badge{
+      font-size:.68rem;color:var(--text-sec);
+      background:rgba(255,255,255,.05);
+      border:1px solid var(--border);
+      border-radius:6px;padding:2px 8px;margin-top:4px;
+      display:inline-block;
+    }
+    .member-id-badge b{color:var(--success);font-family:monospace}
+
+    /* ── Input bar ── */
+    .chat-input-bar{
+      display:flex;gap:10px;
+      padding:14px 16px;
+      border-top:1px solid var(--border);
+      background:rgba(246,218,174,.02);
+    }
+    .chat-input-bar input{
+      flex:1;padding:10px 14px;
+      border-radius:10px;
+      border:1px solid var(--border);
+      background:rgba(255,255,255,.04);
+      color:var(--text-main);
+      font-size:.88rem;outline:none;
+      transition:border-color .2s;
+    }
+    .chat-input-bar input:focus{border-color:rgba(246,218,174,.38)}
+    .chat-input-bar input::placeholder{color:var(--text-sec)}
+
+    .chat-send-btn{
+      padding:10px 20px;border-radius:10px;
+      background:rgba(246,218,174,.12);
+      border:1px solid rgba(246,218,174,.28);
+      color:var(--gold);font-weight:700;font-size:.85rem;
+      cursor:pointer;transition:all .2s;white-space:nowrap;
+    }
+    .chat-send-btn:hover:not(:disabled){
+      background:rgba(246,218,174,.20);transform:translateY(-1px);
+    }
+    .chat-send-btn:disabled{opacity:.4;cursor:default}
+
+    /* ── Rate limit notice ── */
+    .rate-notice{
+      padding:8px 20px;
+      font-size:.78rem;color:var(--danger);
+      border-top:1px solid rgba(244,169,169,.15);
+      background:rgba(244,169,169,.04);
+      text-align:center;
+      display:none;
+    }
+
+    /* hidden */
+    .hidden{display:none!important}
+
+    /* ── Responsive ── */
+    @media(max-width:860px){
+      .app{grid-template-columns:1fr}
+      .sidebar{
+        position:fixed;top:0;left:0;
+        width:280px;height:100vh;z-index:100;
+        transform:translateX(-100%);
+        transition:transform .25s;
+        padding-top:24px;
+      }
+      .sidebar.open{transform:none}
+      .mobile-bar{display:flex}
+      .shell{padding:18px 18px 40px}
+    }
+    @media(max-width:600px){
+      .chat-msg{max-width:88%}
+      .chat-messages{min-height:300px;max-height:360px}
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar" id="sidebar">
+      <a href="index.html" class="brand">
+        <span class="brand-mark">L</span>
+        <div>
+          <strong>Lumié</strong>
+          <small>Dashboard Inteligente</small>
+        </div>
+      </a>
+      <div class="nav-group">
+        <a class="nav-link" href="dashboard.html" data-nav="overview"><span>Visão Geral</span><span>01</span></a>
+        <a class="nav-link" href="perfil.html" data-nav="profile"><span>Perfil</span><span>02</span></a>
+        <a class="nav-link" href="diagnostico.html" data-nav="diagnosis"><span>Diagnóstico</span><span>03</span></a>
+        <a class="nav-link" href="trilha.html" data-nav="journey"><span>Trilha</span><span>04</span></a>
+        <a class="nav-link" href="planner.html" data-nav="planner"><span>Planner</span><span>05</span></a>
+        <a class="nav-link active" href="chat.html" data-nav="chat"><span>Chat</span><span>06</span></a>
+      </div>
+      <div class="sidebar-footer">
+        <div class="mini-status">
+          <span>Conta</span>
+          <b id="sidebarPlan">Acesso Permanente</b>
+        </div>
+        <button class="btn btn-ghost" id="logoutBtn" type="button">Sair</button>
+      </div>
+    </aside>
+
+    <main class="shell">
+      <div class="mobile-bar">
+        <div class="mobile-brand">
+          <span class="brand-mark" style="width:36px;height:36px;border-radius:12px;font-size:14px">L</span>
+          <div>
+            <strong>Lumié</strong>
+            <small>Área do aluno</small>
+          </div>
+        </div>
+        <button class="mobile-menu" id="menuToggle">☰</button>
+      </div>
+
+      <section class="panel" id="panel-chat">
+
+        <!-- Header -->
+        <div class="section-head">
+          <div>
+            <span class="eyebrow">Comunidade &amp; Suporte</span>
+            <h2>Chat</h2>
+            <p>Converse com outros alunos na comunidade ou entre em contato com o suporte Lumié.</p>
+          </div>
+          <div style="text-align:right">
+            <div id="chatUserName" style="font-weight:700;color:var(--text-main)"></div>
+            <div id="chatUserRole" style="font-size:.78rem;color:var(--text-sec)"></div>
+            <div class="member-id-badge">ID: <b id="chatMemberId">—</b></div>
+          </div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="chat-tabs">
+          <button class="chat-tab active" data-channel="community">
+            <span>💬</span> Comunidade
+            <small>Todos os alunos</small>
+          </button>
+          <button class="chat-tab" data-channel="support">
+            <span>🎧</span> Suporte
+            <small>Tire suas dúvidas</small>
+          </button>
+        </div>
+
+        <!-- Canal: Comunidade -->
+        <div class="chat-container" id="channelCommunity">
+          <div class="chat-messages" id="msgsCommunity">
+            <div class="chat-loading">Conectando ao chat...</div>
+          </div>
+          <div class="rate-notice" id="rateCommunity">⚠️ Aguarde alguns segundos antes de enviar outra mensagem.</div>
+          <div class="chat-input-bar">
+            <input type="text" id="inputCommunity" placeholder="Escreva uma mensagem..." maxlength="500" autocomplete="off" />
+            <button class="chat-send-btn" id="sendCommunity">Enviar</button>
+          </div>
+        </div>
+
+        <!-- Canal: Suporte privado -->
+        <div class="chat-container hidden" id="channelSupport">
+          <div class="chat-rules">
+            <b>🎧 Suporte privado:</b> Esta conversa é só entre você e o time Lumié.
+            <br><small style="opacity:.7">Sua chave de membro identifica você na fila de suporte.</small>
+          </div>
+          <div class="chat-messages" id="msgsSupport">
+            <div class="chat-loading">Conectando ao suporte...</div>
+          </div>
+          <div class="rate-notice" id="rateSupport">⚠️ Aguarde alguns segundos antes de enviar outra mensagem.</div>
+          <div class="chat-input-bar">
+            <input type="text" id="inputSupport" placeholder="Descreva sua dúvida..." maxlength="500" autocomplete="off" />
+            <button class="chat-send-btn" id="sendSupport">Enviar</button>
+          </div>
+        </div>
+
+      </section>
+    </main>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getDatabase, ref, push, onChildAdded, query, limitToLast }
+      from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+    // ── Firebase config ────────────────────────────────────────────────────────
+    const firebaseConfig = {
+      apiKey: "AIzaSyAWiyw0YjrnMcPksgR4naFsMYxWnETVm5w",
+      authDomain: "brutalsimmoggado.firebaseapp.com",
+      databaseURL: "https://brutalsimmoggado-default-rtdb.firebaseio.com",
+      projectId: "brutalsimmoggado",
+      storageBucket: "brutalsimmoggado.firebasestorage.app",
+      messagingSenderId: "158161436364",
+      appId: "1:158161436364:web:03d05decab6c7809624c69",
+      measurementId: "G-P04GY22TH6"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db  = getDatabase(app);
+
+    // ── Auth ──────────────────────────────────────────────────────────────────
+    const readJson = (k, fb) => { try { const r = localStorage.getItem(k); return r ? JSON.parse(r) : fb; } catch { return fb; } };
+    const user = readJson('lm_user', null);
+    if (!user || !user.active) { location.href = 'index.html'; }
+
+    // Validate user object has required fields (prevent spoofing)
+    if (!user.email || typeof user.email !== 'string' || !user.name || typeof user.name !== 'string') {
+      localStorage.removeItem('lm_user');
+      location.href = 'index.html';
+    }
+
+    const ADM_EMAIL = 'suporte@lumie.com';
+    const isAdm = (user?.email || '').toLowerCase() === ADM_EMAIL;
+    const memberId = user?.key || '—';
+
+    // Hydrate sidebar
+    const plan = user?.plan || (user?.permanent ? 'Acesso Permanente' : 'Chave Semanal');
+    const sidebarPlanEl = document.getElementById('sidebarPlan');
+    if (sidebarPlanEl) sidebarPlanEl.textContent = plan;
+
+    function dmChannel(email) {
+      return 'dm_' + btoa(email).replace(/[^a-zA-Z0-9]/g, '');
+    }
+
+    document.getElementById('chatUserName').textContent = user?.name || 'Aluno';
+    document.getElementById('chatUserRole').textContent = isAdm ? '⭐ ADM' : 'Membro';
+    document.getElementById('chatMemberId').textContent = memberId;
+
+    // ── Logout ────────────────────────────────────────────────────────────────
+    document.getElementById('logoutBtn')?.addEventListener('click', () => {
+      localStorage.removeItem('lm_user');
+      location.href = 'index.html';
+    });
+
+    // ── Security helpers ──────────────────────────────────────────────────────
+    // Escapa HTML para prevenir XSS
+    const escapeHtml = str =>
+      String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#x27;')
+        .replace(/\//g, '&#x2F;');
+
+    const formatTime = ts => ts ? new Date(ts).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }) : '';
+
+    // Sanitiza texto: remove caracteres de controle, limita tamanho
+    const sanitizeText = (str, maxLen = 500) => {
+      return String(str)
+        .replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/g, '') // controles
+        .replace(/\s+/g, ' ')
+        .trim()
+        .slice(0, maxLen);
+    };
+
+    // ── Rate limiting (client-side) ───────────────────────────────────────────
+    const rateLimits = { community: 0, support: 0 };
+    const RATE_DELAY_MS = 3000; // 3s entre mensagens
+
+    function isRateLimited(channel) {
+      return Date.now() < rateLimits[channel];
+    }
+    function setRateLimit(channel) {
+      rateLimits[channel] = Date.now() + RATE_DELAY_MS;
+    }
+    function showRateNotice(channel) {
+      const el = document.getElementById(channel === 'community' ? 'rateCommunity' : 'rateSupport');
+      if (!el) return;
+      el.style.display = 'block';
+      setTimeout(() => { el.style.display = 'none'; }, RATE_DELAY_MS);
+    }
+
+    // ── Render mensagem comunidade ────────────────────────────────────────────
+    function renderCommunityMsg(container, msg) {
+      container.querySelectorAll('.chat-loading').forEach(el => el.remove());
+      const isMine = msg.email === user.email;
+      const div = document.createElement('div');
+      div.className = `chat-msg ${isMine ? 'mine' : 'theirs'} ${msg.isAdm ? 'adm-msg' : ''}`;
+      // Usa escapeHtml em TODOS os dados vindos do Firebase
+      div.innerHTML = `
+        <div class="msg-meta">
+          <b>${escapeHtml(msg.name)}${msg.isAdm ? ' <span class="adm-badge">ADM</span>' : ''}</b>
+          <span>${formatTime(msg.ts)}</span>
+        </div>
+        <div class="msg-bubble">${escapeHtml(msg.text)}</div>
+      `;
+      container.appendChild(div);
+      container.scrollTop = container.scrollHeight;
+    }
+
+    // ── Render mensagem de suporte ────────────────────────────────────────────
+    function renderSupportMsg(container, msg) {
+      container.querySelectorAll('.chat-loading').forEach(el => el.remove());
+      const fromAdm = (msg.fromEmail || '').toLowerCase() === ADM_EMAIL;
+      const mineFlag = isAdm ? fromAdm : !fromAdm;
+      const div = document.createElement('div');
+      div.className = `chat-msg ${mineFlag ? 'mine' : 'theirs'} ${fromAdm ? 'adm-msg' : ''}`;
+      div.innerHTML = `
+        <div class="msg-meta">
+          <b>${escapeHtml(msg.fromName || '?')}${fromAdm ? ' <span class="adm-badge">ADM</span>' : ''}</b>
+          <span>${formatTime(msg.ts)}</span>
+        </div>
+        ${fromAdm ? '<div class="dm-label">✉️ Suporte Lumié</div>' : ''}
+        <div class="${fromAdm ? 'dm-bubble' : 'msg-bubble'}">${escapeHtml(msg.text)}</div>
+      `;
+      container.appendChild(div);
+      container.scrollTop = container.scrollHeight;
+    }
+
+    // ── Canal Comunidade ──────────────────────────────────────────────────────
+    (function initCommunity() {
+      const container = document.getElementById('msgsCommunity');
+      const input     = document.getElementById('inputCommunity');
+      const sendBtn   = document.getElementById('sendCommunity');
+
+      const msgsRef = query(ref(db, 'chat/community'), limitToLast(100));
+      onChildAdded(msgsRef, snap => { const m = snap.val(); if (m) renderCommunityMsg(container, m); });
+
+      const send = async () => {
+        if (isRateLimited('community')) { showRateNotice('community'); return; }
+
+        const rawText = input.value;
+        const text = sanitizeText(rawText);
+        if (!text) return;
+
+        input.value = '';
+        input.disabled = sendBtn.disabled = true;
+        setRateLimit('community');
+
+        try {
+          await push(ref(db, 'chat/community'), {
+            name:  sanitizeText(user.name, 80),
+            email: user.email.toLowerCase().trim(),
+            text,
+            isAdm: isAdm || false,
+            ts:    Date.now()
+          });
+        } catch(e) { alert('Erro ao enviar. Verifique sua conexão.'); }
+        finally { input.disabled = sendBtn.disabled = false; input.focus(); }
+      };
+      sendBtn.addEventListener('click', send);
+      input.addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send(); } });
+    })();
+
+    // ── Suporte privado ───────────────────────────────────────────────────────
+    let supportInited = false;
+    function initSupport() {
+      if (supportInited) return;
+      supportInited = true;
+
+      const container = document.getElementById('msgsSupport');
+      const input     = document.getElementById('inputSupport');
+      const sendBtn   = document.getElementById('sendSupport');
+
+      if (isAdm) {
+        container.innerHTML = '<div class="chat-loading" style="color:var(--success)">Você é ADM — use o <a href="painel-lumie-interno.html" style="color:var(--success);text-decoration:underline">Painel ADM</a> para responder alunos.</div>';
+        input.disabled = sendBtn.disabled = true;
+        return;
+      }
+
+      const ch = dmChannel(user.email);
+      const msgsRef = query(ref(db, `chat/dms/${ch}`), limitToLast(100));
+      onChildAdded(msgsRef, snap => { const m = snap.val(); if (m) renderSupportMsg(container, m); });
+
+      const send = async () => {
+        if (isRateLimited('support')) { showRateNotice('support'); return; }
+
+        const rawText = input.value;
+        const text = sanitizeText(rawText);
+        if (!text) return;
+
+        input.value = '';
+        input.disabled = sendBtn.disabled = true;
+        setRateLimit('support');
+
+        try {
+          await push(ref(db, `chat/dms/${ch}`), {
+            fromName:  sanitizeText(user.name, 80),
+            fromEmail: user.email.toLowerCase().trim(),
+            toEmail:   ADM_EMAIL,
+            toName:    'Suporte Lumié',
+            memberId:  memberId,
+            text,
+            ts: Date.now()
+          });
+        } catch(e) { alert('Erro ao enviar. Verifique sua conexão.'); }
+        finally { input.disabled = sendBtn.disabled = false; input.focus(); }
+      };
+      sendBtn.addEventListener('click', send);
+      input.addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send(); } });
+    }
+
+    // ── Tabs ──────────────────────────────────────────────────────────────────
+    document.querySelectorAll('.chat-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.chat-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        const ch = tab.dataset.channel;
+        document.getElementById('channelCommunity').classList.toggle('hidden', ch !== 'community');
+        document.getElementById('channelSupport').classList.toggle('hidden',   ch !== 'support');
+        if (ch === 'support') initSupport();
+      });
+    });
+
+    // ── Mobile menu ───────────────────────────────────────────────────────────
+    document.getElementById('menuToggle')?.addEventListener('click', () =>
+      document.getElementById('sidebar')?.classList.toggle('open'));
+
+    // Fecha sidebar ao clicar fora (mobile)
+    document.addEventListener('click', e => {
+      const sidebar = document.getElementById('sidebar');
+      if (sidebar?.classList.contains('open') &&
+          !sidebar.contains(e.target) &&
+          e.target.id !== 'menuToggle') {
+        sidebar.classList.remove('open');
+      }
+    });
+  </script>
+</body>
+</html>

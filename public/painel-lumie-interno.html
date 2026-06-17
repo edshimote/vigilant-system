@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <!-- ════════════════════════════════════════════════════════════════
+       GUARDA DE SEGURANÇA — executa ANTES de qualquer renderização.
+       Bloqueia acesso direto por URL, DevTools, ou localStorage editado.
+       ════════════════════════════════════════════════════════════════ -->
+  <script>
+    (function() {
+      'use strict';
+      var ADM = 'suporte@lumie.com';
+      document.documentElement.style.visibility = 'hidden';
+
+      function bail() {
+        document.documentElement.style.visibility = '';
+        window.history.replaceState(null, '', '/index.html');
+        window.location.replace('index.html');
+      }
+
+      try {
+        var raw = localStorage.getItem('lm_user');
+        if (!raw) { bail(); return; }
+        var u = JSON.parse(raw);
+        if (!u || typeof u !== 'object') { bail(); return; }
+        if (!u.active || !u.sessionToken || !u.isAdm) { bail(); return; }
+        if (typeof u.email !== 'string') { bail(); return; }
+        if (u.email.toLowerCase().trim() !== ADM) { bail(); return; }
+        if (!/^[0-9a-f]{32,}$/i.test(u.sessionToken)) { bail(); return; }
+      } catch(e) {
+        bail(); return;
+      }
+
+      document.addEventListener('DOMContentLoaded', function() {
+        try {
+          var u = JSON.parse(localStorage.getItem('lm_user') || 'null');
+          if (!u) { bail(); return; }
+          fetch('/api/verify-admin', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ sessionToken: u.sessionToken, email: u.email })
+          })
+          .then(function(r) { return r.json(); })
+          .then(function(data) {
+            if (!data || !data.ok) {
+              localStorage.removeItem('lm_user');
+              bail();
+            } else {
+              document.documentElement.style.visibility = '';
+            }
+          })
+          .catch(function() {
+            console.warn('[ADM] Verificação server-side indisponível. Usando verificação local.');
+            document.documentElement.style.visibility = '';
+          });
+        } catch(e) { bail(); }
+      });
+    })();
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow, noarchive" />
+  <title>Lumié — Área Restrita</title>
+  <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAIAAAAlC+aJAAABCGlDQ1BJQ0MgUHJvZmlsZQAAeJxjYGA8wQAELAYMDLl5JUVB7k4KEZFRCuwPGBiBEAwSk4sLGHADoKpv1yBqL+viUYcLcKakFicD6Q9ArFIEtBxopAiQLZIOYWuA2EkQtg2IXV5SUAJkB4DYRSFBzkB2CpCtkY7ETkJiJxcUgdT3ANk2uTmlyQh3M/Ck5oUGA2kOIJZhKGYIYnBncAL5H6IkfxEDg8VXBgbmCQixpJkMDNtbGRgkbiHEVBYwMPC3MDBsO48QQ4RJQWJRIliIBYiZ0tIYGD4tZ2DgjWRgEL7AwMAVDQsIHG5TALvNnSEfCNMZchhSgSKeDHkMyQx6QJYRgwGDIYMZAKbWPz9HbOBQAAAEIElEQVR4nO3YS2xUVRgA4P8/5z6mM52ZvihOW+nDaWUqj6S1CsaI0WArSmCBGotdaE0wsvQVjKw0BDVhY0gXLlwoGjcao5FAFExaNaYIRPvS0AY7JZXOtPNo7+087jm/iwF0YxPiaVLJ+RaTyczk/v+55z/n/mcANE3TNE3TNE3TtFsLY8g5Q0QAZKz0Bkqv/wOM/WuiAX+ZaRoKY6m/JYwxKeXGlrrnn+7p7Oqs39D008+/HH7zvURyoW59tecJx80lFtIAQKQ8+H/GGAOAfd33xoc/pNwlImfw9EcdW2O2bdVUhdtaGp7Z++D2jo03frm2lHJ6aPumqxdOuMkRz0sMf/eJxf+e5IpQ4PWDTx7o7akIBVYos5sLquQqAICIRBQOBt56eb+/pskoC2M+/dJrRwqCfLZlmmYoGDjySt/Q8Jhlmgd6ezjna2tNc84A4IXe7vT4Z4tzY0TJH099UPoqHAzEohsAwGdb7x56tv+pnbDiQr8pymZACmkaxt5HusAKcssHQKe//R4ALNO4/+72nh0d1RXBXL4wdG7s/K9Tm+5sBkUrWM0AGEMCaG2KRFsawAhwzoEKI+OTAGAYvKoy5LOtYLkfEc+PTMVnE54QUtEepGZLRkQAikXrg8Fy5DZDBkLMp7IA4C7nvz473NRQe3nmKgDEZxMIkExllcQFVTNQKue69VWcG8iYJAncsCwLADhjmUXn4uhUMOCPRRtraypJ6R6q5kKlagj6fUREJKUnAO1IZB0CIEMppSTq3tHRtbXVdXOl/UpJXFC4iAFASCGFFJ5HwgMwujq3XEuTAADm00tT038uucuIsEYHkMm6wiuIYh5IUjH3aM/DlmVISQRARGd/uDg0PIKIRGAaytohlQOIz87nc24h55AUy9lsU2xz3xOPSSlN00AEBDA4J6I7GiPVlSFQ1JwqWgOSAGBiciadyhSclBQFEvmimz969HBrc32hUCQCQPSE8NtWf+/udHZJVSGpGYAkQoTLVxITl+L5pUTOzZLwik6mel3km5MnHt95X5ltMKRY9PaTnw94knL5AudcSWhl3QjnTAjZt3vbGwf3sFDDbY3tyBiiWRYsRxS/j084jtMWjRrotXXsmp5NMoZSrpkZAAApCRG+OHNhanrOTc1kklcQQMqCk0k7i2402tp+15ZAwD527Pj0bJIzpiR7UDgAIkLErJN/5/2vmCjOTY8tXP1DiiICgfRS8/Pe0tzgqS/fHviUMVTVR4DyE1mpMPbvuufQi3sMy2Z2yOcPGwa3uBgdnXju1eOT8TlVxVOyGkdKlJK2bW7u3/dAW3PEss1FJz947reBj88k04tqs18tN3r96nB5Q21lmW1d+3xNnWBWxhj+8znFr/+zotzq3pLrSSvsfTRN0zRN0zRN0zRNu0X8BSletya6Rn+DAAAAAElFTkSuQmCC">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lumié</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* ── ADM Layout ── */
+    html, body { margin: 0; padding: 0; height: 100%; overflow: hidden; }
+    .adm-layout {
+      display: flex;
+      flex-direction: row;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      position: fixed;
+      top: 0; left: 0;
+    }
+    @media (max-width: 700px) {
+      .adm-sidebar { display: none; }
+      .adm-sidebar.open { display: flex; position: fixed; inset: 0; z-index: 100; width: 280px; }
+    }
+
+    /* ── ADM Sidebar (member list) ── */
+    .adm-sidebar {
+      display: flex;
+      flex-direction: column;
+      width: 280px;
+      min-width: 280px;
+      max-width: 280px;
+      height: 100vh;
+      background: rgba(255,255,255,.03);
+      border-right: 1px solid rgba(255,255,255,.07);
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .adm-sidebar-head {
+      padding: 20px 18px 14px;
+      border-bottom: 1px solid rgba(255,255,255,.07);
+      flex-shrink: 0;
+    }
+    .adm-sidebar-head h2 { font-size: 1rem; margin: 0 0 4px; }
+    .adm-sidebar-head p  { font-size: .72rem; color: var(--muted); margin: 0; }
+    .adm-sidebar-head .adm-badge-head {
+      display: inline-block;
+      background: rgba(154,255,0,.12);
+      border: 1px solid rgba(154,255,0,.3);
+      color: #9aff00;
+      font-size: .68rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 6px;
+      margin-bottom: 8px;
+    }
+    .member-search {
+      padding: 10px 18px;
+      border-bottom: 1px solid rgba(255,255,255,.06);
+      flex-shrink: 0;
+    }
+    .member-search input {
+      width: 100%;
+      padding: 8px 12px;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,.1);
+      background: rgba(255,255,255,.05);
+      color: var(--text);
+      font-size: .82rem;
+      font-family: inherit;
+      outline: none;
+      box-sizing: border-box;
+      transition: border-color .2s;
+    }
+    .member-search input:focus { border-color: rgba(0,245,255,.35); }
+    .member-list {
+      flex: 1;
+      overflow-y: auto;
+      padding: 6px 0;
+    }
+    .member-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 18px;
+      cursor: pointer;
+      transition: background .15s;
+      border-left: 3px solid transparent;
+    }
+    .member-item:hover { background: rgba(255,255,255,.04); }
+    .member-item.active {
+      background: rgba(0,245,255,.06);
+      border-left-color: var(--green);
+    }
+    .member-item.has-msg .member-name::after {
+      content: '●';
+      color: #9aff00;
+      font-size: .55rem;
+      margin-left: 5px;
+      vertical-align: middle;
+    }
+    .member-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(0,245,255,.12);
+      border: 1px solid rgba(0,245,255,.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .85rem;
+      font-weight: 700;
+      color: var(--green);
+      flex-shrink: 0;
+    }
+    .member-info { flex: 1; min-width: 0; }
+    .member-name { font-size: .85rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .member-key  { font-size: .65rem; color: var(--muted); font-family: monospace; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .member-plan-tag {
+      font-size: .6rem;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .member-plan-tag.permanent { background: rgba(0,245,255,.1); color: var(--green); }
+    .member-plan-tag.weekly    { background: rgba(255,200,0,.1); color: #ffc800; }
+    .member-list-empty {
+      padding: 24px 18px;
+      color: var(--muted);
+      font-size: .82rem;
+      text-align: center;
+    }
+
+    /* ── ADM Main chat area ── */
+    .adm-main {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      min-width: 0;
+      height: 100vh;
+      overflow: hidden;
+    }
+    .adm-top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 24px;
+      border-bottom: 1px solid rgba(255,255,255,.07);
+      flex-shrink: 0;
+      gap: 12px;
+    }
+    .adm-top-bar .member-info-bar { flex: 1; min-width: 0; }
+    .adm-top-bar h2 { font-size: .95rem; margin: 0 0 2px; }
+    .adm-top-bar small { font-size: .7rem; color: var(--muted); font-family: monospace; }
+    .adm-top-bar .brand { font-size: .9rem; }
+    .adm-logout { font-size: .78rem; }
+
+    .adm-placeholder {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      gap: 10px;
+      padding: 32px;
+    }
+    .adm-placeholder .logo-mark {
+      width: 56px; height: 56px;
+      background: rgba(0,245,255,.08);
+      border: 1px solid rgba(0,245,255,.18);
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem; font-weight: 900; color: var(--green);
+      margin-bottom: 4px;
+    }
+    .adm-placeholder h3 { font-size: .95rem; color: var(--text); margin: 0; }
+    .adm-placeholder p  { font-size: .8rem; margin: 0; text-align: center; max-width: 280px; }
+
+    /* ── Chat area ── */
+    .adm-chat-area {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .adm-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .adm-input-bar {
+      display: flex;
+      gap: 10px;
+      padding: 14px 24px;
+      border-top: 1px solid rgba(255,255,255,.07);
+      flex-shrink: 0;
+    }
+    .adm-input-bar input {
+      flex: 1;
+      padding: 10px 14px;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.055);
+      color: var(--text);
+      font-size: .88rem;
+      font-family: inherit;
+      outline: none;
+      transition: border-color .2s, box-shadow .2s;
+    }
+    .adm-input-bar input:focus {
+      border-color: rgba(154,255,0,.4);
+      box-shadow: 0 0 0 3px rgba(154,255,0,.08);
+    }
+
+    /* ── Stats bar ── */
+    .adm-stats {
+      display: flex;
+      gap: 16px;
+      padding: 10px 24px;
+      border-bottom: 1px solid rgba(255,255,255,.06);
+      flex-shrink: 0;
+    }
+    .adm-stat {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .adm-stat b { font-size: 1.1rem; color: var(--green); }
+    .adm-stat span { font-size: .65rem; color: var(--muted); }
+
+    /* Mobile toggle */
+    .adm-mobile-toggle {
+      display: none;
+      background: none;
+      border: 1px solid rgba(255,255,255,.15);
+      color: var(--text);
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: .8rem;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    @media (max-width: 700px) { .adm-mobile-toggle { display: block; } }
+
+    /* Scrollbar */
+    .member-list::-webkit-scrollbar,
+    .adm-messages::-webkit-scrollbar { width: 4px; }
+    .member-list::-webkit-scrollbar-thumb,
+    .adm-messages::-webkit-scrollbar-thumb { background: rgba(255,255,255,.1); border-radius: 4px; }
+
+    /* ── Notificação pop-up ── */
+    #notifToast {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      z-index: 9999;
+      background: #111;
+      border: 1px solid rgba(154,255,0,.45);
+      border-radius: 14px;
+      padding: 14px 18px 14px 14px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 280px;
+      max-width: 340px;
+      box-shadow: 0 8px 32px rgba(0,0,0,.55);
+      cursor: pointer;
+      transform: translateY(100px);
+      opacity: 0;
+      transition: transform .35s cubic-bezier(.22,1,.36,1), opacity .3s;
+      pointer-events: none;
+    }
+    #notifToast.show {
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: all;
+    }
+    .notif-avatar {
+      width: 38px; height: 38px;
+      border-radius: 50%;
+      background: rgba(154,255,0,.15);
+      border: 1px solid rgba(154,255,0,.3);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: .9rem; color: #9aff00;
+      flex-shrink: 0;
+    }
+    .notif-body { flex: 1; min-width: 0; }
+    .notif-title { font-size: .8rem; font-weight: 700; color: #9aff00; margin-bottom: 2px; }
+    .notif-text  { font-size: .78rem; color: #ccc; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .notif-close {
+      background: none; border: none; color: #888;
+      font-size: 1rem; cursor: pointer; padding: 0 2px; line-height: 1; flex-shrink: 0;
+    }
+    .member-item.unread .member-name::after {
+      content: '●';
+      color: #9aff00;
+      font-size: .5rem;
+      margin-left: 6px;
+      vertical-align: middle;
+      animation: pulse-dot 1.4s infinite;
+    }
+    .unread-count {
+      background: #9aff00;
+      color: #000;
+      border-radius: 10px;
+      padding: 1px 7px;
+      font-size: .62rem;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+
+
+    /* ── ADM Key Generator ── */
+    .adm-key-panel {
+      margin: 14px 24px 0;
+      padding: 14px;
+      border: 1px solid rgba(154,255,0,.16);
+      background: linear-gradient(135deg, rgba(154,255,0,.055), rgba(0,245,255,.035));
+      border-radius: 14px;
+      flex-shrink: 0;
+    }
+    .adm-key-panel h3 { margin: 0 0 4px; font-size: .92rem; color: var(--text); }
+    .adm-key-panel p { margin: 0 0 10px; font-size: .74rem; color: var(--muted); line-height: 1.45; }
+    .adm-key-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+    .adm-key-actions .btn { padding: 8px 10px; font-size: .75rem; border-radius: 9px; }
+    .adm-key-output {
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-top: 10px;
+      padding: 10px;
+      border-radius: 10px;
+      background: rgba(0,0,0,.22);
+      border: 1px solid rgba(255,255,255,.08);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .72rem;
+      color: var(--green);
+      overflow: hidden;
+    }
+    .adm-key-output.show { display: flex; }
+    .adm-key-output code { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .adm-key-output button { flex-shrink: 0; }
+    .adm-key-history { margin-top: 10px; max-height: 118px; overflow: auto; display: grid; gap: 6px; }
+    .adm-key-row {
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 8px;
+      border-radius: 9px;
+      background: rgba(255,255,255,.035);
+      border: 1px solid rgba(255,255,255,.055);
+      font-size: .68rem;
+    }
+    .adm-key-row code { color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .adm-key-pill { font-size: .58rem; font-weight: 800; padding: 2px 6px; border-radius: 999px; }
+    .adm-key-pill.vitalicia { background: rgba(0,245,255,.10); color: var(--green); }
+    .adm-key-pill.semanal { background: rgba(255,200,0,.12); color: #ffc800; }
+    .adm-key-pill.usada { background: rgba(255,255,255,.08); color: var(--muted); }
+    .adm-key-copy { border: 0; background: transparent; color: var(--green); cursor: pointer; font-size: .68rem; font-weight: 700; }
+    @media (max-width: 700px) {
+      .adm-key-panel { margin: 10px 14px 0; }
+      .adm-key-actions { flex-direction: column; }
+      .adm-key-actions .btn { width: 100%; }
+      .adm-key-row { grid-template-columns: 1fr auto; }
+      .adm-key-row .adm-key-copy { grid-column: 2; }
+    }
+
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; }
+      50% { opacity: .3; }
+    }
+  </style>
+</head>
+<body class="dash-body" style="overflow:hidden">
+  <div class="noise"></div>
+
+  <div class="adm-layout">
+
+    <!-- ── Sidebar: lista de membros ── -->
+    <aside class="adm-sidebar" id="admSidebar">
+      <div class="adm-sidebar-head">
+        <div class="adm-badge-head">⭐ PAINEL ADM</div>
+        <h2>Lumié Beauty School</h2>
+        <p id="memberCount">Carregando membros...</p>
+      </div>
+      <div class="member-search">
+        <input type="text" id="memberSearch" placeholder="Buscar membro..." autocomplete="off" />
+      </div>
+      <div class="member-list" id="memberList">
+        <div class="member-list-empty">Nenhum membro ainda.</div>
+      </div>
+    </aside>
+
+    <!-- ── Main: chat por membro ── -->
+    <main class="adm-main">
+
+      <!-- Top bar -->
+      <div class="adm-top-bar">
+        <button class="adm-mobile-toggle" id="toggleSidebar">☰ Membros</button>
+        <div class="member-info-bar" id="activeMemberBar" style="display:none">
+          <h2 id="activeMemberName">—</h2>
+          <small id="activeMemberKey">—</small>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;margin-left:auto">
+          <a class="brand" href="index.html" style="font-size:.82rem;opacity:.6">← Site</a>
+          <button class="btn ghost adm-logout" id="admLogout">Sair</button>
+        </div>
+      </div>
+
+      <!-- Stats -->
+      <div class="adm-stats" id="admStats">
+        <div class="adm-stat"><b id="statTotal">0</b><span>membros</span></div>
+        <div class="adm-stat"><b id="statPermanent">0</b><span>permanentes</span></div>
+        <div class="adm-stat"><b id="statWeekly">0</b><span>semanais</span></div>
+        <div class="adm-stat"><b id="statActive">0</b><span>ativos</span></div>
+      </div>
+
+
+
+      <!-- Gerador de Chaves -->
+      <section class="adm-key-panel" aria-label="Gerador de chaves ADM">
+        <h3>Gerar Chave de Ativação</h3>
+        <p>Use estes botões para criar uma chave semanal de 7 dias ou uma chave vitalícia e enviar ao aluno.</p>
+        <div class="adm-key-actions">
+          <button class="btn ghost" type="button" id="createWeeklyKey">+ Chave 7 dias</button>
+          <button class="btn primary" type="button" id="createLifetimeKey">+ Chave Vitalícia</button>
+        </div>
+        <div class="adm-key-output" id="admKeyOutput">
+          <code id="admCreatedKey">—</code>
+          <button class="adm-key-copy" type="button" id="copyCreatedKey">Copiar</button>
+        </div>
+        <div class="adm-key-history" id="admKeyHistory"></div>
+      </section>
+
+      <!-- Placeholder (nenhum membro selecionado) -->
+      <div class="adm-placeholder" id="admPlaceholder">
+        <div class="logo-mark">L</div>
+        <h3>Selecione um membro</h3>
+        <p>Escolha um membro na lista ao lado para abrir o chat de suporte privado com ele.</p>
+      </div>
+
+      <!-- Chat area (aparece quando membro selecionado) -->
+      <div class="adm-chat-area hidden" id="admChatArea">
+        <div class="adm-messages" id="admMessages"></div>
+        <div class="adm-input-bar">
+          <input type="text" id="admChatInput" placeholder="Mensagem para o membro..." maxlength="500" autocomplete="off" />
+          <button class="chat-send-btn" id="admChatSend">Enviar</button>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- Pop-up de notificação -->
+  <div id="notifToast">
+    <div class="notif-avatar" id="notifAvatar">?</div>
+    <div class="notif-body">
+      <div class="notif-title" id="notifTitle">Nova mensagem</div>
+      <div class="notif-text"  id="notifText">...</div>
+    </div>
+    <button class="notif-close" id="notifClose">✕</button>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getDatabase, ref, push, onChildAdded, query, limitToLast, get }
+      from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAWiyw0YjrnMcPksgR4naFsMYxWnETVm5w",
+      authDomain: "brutalsimmoggado.firebaseapp.com",
+      databaseURL: "https://brutalsimmoggado-default-rtdb.firebaseio.com",
+      projectId: "brutalsimmoggado",
+      storageBucket: "brutalsimmoggado.firebasestorage.app",
+      messagingSenderId: "158161436364",
+      appId: "1:158161436364:web:03d05decab6c7809624c69"
+    };
+    const app = initializeApp(firebaseConfig);
+    const db  = getDatabase(app);
+
+    // ── Auth guard (verificação local secundária — a principal está no <head>) ──
+    const readJson = (k, fb) => { try { const r = localStorage.getItem(k); return r ? JSON.parse(r) : fb; } catch { return fb; } };
+    const user = readJson('lm_user', null);
+    const ADM_EMAIL = 'suporte@lumie.com';
+    const FIREBASE_DB_URL = 'https://brutalsimmoggado-default-rtdb.firebaseio.com';
+    // Tripla verificação: active + isAdm + email + sessionToken format
+    if (!user || !user.active || !user.isAdm ||
+        (user.email || '').toLowerCase() !== ADM_EMAIL ||
+        !/^[0-9a-f]{32,}$/i.test(user.sessionToken || '')) {
+      localStorage.removeItem('lm_user');
+      location.replace('index.html');
+    }
+
+    // ── Helpers ─────────────────────────────────────────────────────────────
+    function escapeHtml(s) {
+      return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    }
+    function formatTime(ts) {
+      if (!ts) return '';
+      return new Date(ts).toLocaleTimeString('pt-BR', { hour:'2-digit', minute:'2-digit' });
+    }
+    function formatDate(ts) {
+      if (!ts) return '';
+      return new Date(ts).toLocaleDateString('pt-BR');
+    }
+    function initials(name) {
+      return (name || '?').split(' ').map(w => w[0]).slice(0,2).join('').toUpperCase();
+    }
+    function dmChannel(email) {
+      return 'dm_' + btoa(email).replace(/[^a-zA-Z0-9]/g, '');
+    }
+
+
+
+    // ── Gerador de chaves ADM ───────────────────────────────────────────────
+    const PLANS = {
+      weekly:    { plan: 'Key Semanal',   days: 7, permanent: false, prefix: 'LUMIE-SEM' },
+      permanent: { plan: 'Key Vitalícia', days: 0, permanent: true,  prefix: 'LUMIE-VIT' }
+    };
+    const accessKeys = () => readJson('lm_access_keys', []);
+    const setAccessKeys = (v) => localStorage.setItem('lm_access_keys', JSON.stringify(v));
+    const usedKeys = () => readJson('lm_used_keys', []);
+
+    async function saveRemoteAccessKey(record) {
+      if (!record?.key) return false;
+      try {
+        await fetch(`${FIREBASE_DB_URL}/lumieKeys/${encodeURIComponent(record.key)}.json`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(record)
+        });
+        return true;
+      } catch { return false; }
+    }
+
+    function generateAccessKey(planType) {
+      const plan = PLANS[planType];
+      const bytes = new Uint8Array(8);
+      crypto.getRandomValues(bytes);
+      const random = Array.from(bytes).map(b => b.toString(16).padStart(2, '0')).join('').toUpperCase();
+      return `${plan.prefix}-${random.slice(0,4)}-${random.slice(4,8)}-${random.slice(8,12)}`;
+    }
+
+    function createAdmAccessKey(planType) {
+      const plan = PLANS[planType];
+      if (!plan) return null;
+      const list = accessKeys();
+      let key = generateAccessKey(planType);
+      while (list.some(k => k.key === key) || usedKeys().includes(key)) key = generateAccessKey(planType);
+
+      const record = {
+        key,
+        planType,
+        plan: plan.plan,
+        days: plan.days,
+        permanent: plan.permanent,
+        moduleLimit: 8,
+        createdAt: new Date().toISOString(),
+        createdBy: ADM_EMAIL,
+        source: 'adm',
+        used: false,
+        usedBy: null,
+        usedAt: null
+      };
+      list.unshift(record);
+      setAccessKeys(list);
+      saveRemoteAccessKey(record);
+      return record;
+    }
+
+    function copyText(text, btn = null) {
+      const done = () => {
+        if (!btn) return;
+        const old = btn.textContent;
+        btn.textContent = 'Copiado!';
+        setTimeout(() => btn.textContent = old, 1500);
+      };
+      if (navigator.clipboard?.writeText) navigator.clipboard.writeText(text).then(done).catch(() => {});
+      else {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        ta.remove();
+        done();
+      }
+    }
+
+    function renderAdmKeyHistory() {
+      const box = document.getElementById('admKeyHistory');
+      if (!box) return;
+      const keys = accessKeys().slice(0, 8);
+      if (keys.length === 0) {
+        box.innerHTML = '<div class="member-list-empty" style="padding:8px">Nenhuma chave criada ainda.</div>';
+        return;
+      }
+      box.innerHTML = keys.map(k => {
+        const label = k.used ? 'Usada' : (k.permanent ? 'Vitalícia' : 'Semanal');
+        const cls = k.used ? 'usada' : (k.permanent ? 'vitalicia' : 'semanal');
+        return `<div class="adm-key-row">
+          <code title="${escapeHtml(k.key)}">${escapeHtml(k.key)}</code>
+          <span class="adm-key-pill ${cls}">${label}</span>
+          <button type="button" class="adm-key-copy" data-copy-key="${escapeHtml(k.key)}">Copiar</button>
+        </div>`;
+      }).join('');
+      box.querySelectorAll('[data-copy-key]').forEach(btn => {
+        btn.addEventListener('click', () => copyText(btn.dataset.copyKey, btn));
+      });
+    }
+
+    function showCreatedKey(record) {
+      const output = document.getElementById('admKeyOutput');
+      const code = document.getElementById('admCreatedKey');
+      if (!output || !code || !record) return;
+      code.textContent = record.key;
+      output.classList.add('show');
+      renderAdmKeyHistory();
+      copyText(record.key, document.getElementById('copyCreatedKey'));
+    }
+
+    document.getElementById('createWeeklyKey')?.addEventListener('click', () => showCreatedKey(createAdmAccessKey('weekly')));
+    document.getElementById('createLifetimeKey')?.addEventListener('click', () => showCreatedKey(createAdmAccessKey('permanent')));
+    document.getElementById('copyCreatedKey')?.addEventListener('click', e => {
+      const key = document.getElementById('admCreatedKey')?.textContent?.trim();
+      if (key && key !== '—') copyText(key, e.currentTarget);
+    });
+    renderAdmKeyHistory();
+
+    // ── Load members from localStorage ──────────────────────────────────────
+    const allAccounts = readJson('lm_accounts', []);
+    const members = allAccounts.filter(a => a.email !== ADM_EMAIL);
+
+    // Update stats
+    document.getElementById('statTotal').textContent     = members.length;
+    document.getElementById('statPermanent').textContent = members.filter(m => m.permanent).length;
+    document.getElementById('statWeekly').textContent    = members.filter(m => !m.permanent).length;
+    const now = new Date();
+    document.getElementById('statActive').textContent    = members.filter(m =>
+      m.permanent || (m.expiresAt && new Date(m.expiresAt) > now)
+    ).length;
+    document.getElementById('memberCount').textContent =
+      members.length === 0 ? 'Nenhum membro ainda' : `${members.length} membro${members.length > 1 ? 's' : ''}`;
+
+    // ── Render member list ───────────────────────────────────────────────────
+    let activeMemberEmail = null;
+    let activeUnsub = null;
+
+    function renderMemberList(filter = '') {
+      const list = document.getElementById('memberList');
+      const filtered = members.filter(m =>
+        !filter || m.name.toLowerCase().includes(filter.toLowerCase()) ||
+        (m.email || '').toLowerCase().includes(filter.toLowerCase())
+      );
+
+      if (filtered.length === 0) {
+        list.innerHTML = `<div class="member-list-empty">${filter ? 'Nenhum resultado.' : 'Nenhum membro ainda.'}</div>`;
+        return;
+      }
+
+      list.innerHTML = filtered.map(m => {
+        const isExpired = !m.permanent && m.expiresAt && new Date(m.expiresAt) < now;
+        const planLabel = m.permanent ? 'Vitalício' : (isExpired ? 'Expirado' : 'Semanal');
+        const planClass = m.permanent ? 'permanent' : 'weekly';
+        return `
+          <div class="member-item ${m.email === activeMemberEmail ? 'active' : ''}"
+               data-email="${escapeHtml(m.email)}"
+               data-name="${escapeHtml(m.name)}"
+               data-key="${escapeHtml(m.key || '')}">
+            <div class="member-avatar">${escapeHtml(initials(m.name))}</div>
+            <div class="member-info">
+              <div class="member-name">${escapeHtml(m.name)}</div>
+              <div class="member-key">${escapeHtml(m.key || m.email)}</div>
+            </div>
+            <span class="member-plan-tag ${planClass}">${planLabel}</span>
+          </div>`;
+      }).join('');
+
+      // Click handlers
+      list.querySelectorAll('.member-item').forEach(item => {
+        item.addEventListener('click', () => {
+          const email = item.dataset.email;
+          const name  = item.dataset.name;
+          const key   = item.dataset.key;
+          openMemberChat(email, name, key);
+          // Mobile: close sidebar
+          document.getElementById('admSidebar')?.classList.remove('open');
+        });
+      });
+    }
+
+    renderMemberList();
+
+    document.getElementById('memberSearch')?.addEventListener('input', e => {
+      renderMemberList(e.target.value);
+    });
+
+    // ── Notificação ──────────────────────────────────────────────────────────
+    let notifTimer = null;
+    const unreadCounts = {}; // email -> count
+    const lastSeenTs   = {}; // email -> last ts when chat was opened
+
+    function showToast(name, text, email, key) {
+      const toast = document.getElementById('notifToast');
+      document.getElementById('notifAvatar').textContent = (name || '?').charAt(0).toUpperCase();
+      document.getElementById('notifTitle').textContent  = '💬 ' + name;
+      document.getElementById('notifText').textContent   = text;
+
+      toast.classList.add('show');
+      clearTimeout(notifTimer);
+      notifTimer = setTimeout(() => toast.classList.remove('show'), 5000);
+
+      // Clicar no toast abre o chat do membro
+      toast.onclick = (e) => {
+        if (e.target.id === 'notifClose') { toast.classList.remove('show'); return; }
+        toast.classList.remove('show');
+        openMemberChat(email, name, key);
+      };
+      document.getElementById('notifClose').onclick = (e) => {
+        e.stopPropagation();
+        toast.classList.remove('show');
+      };
+    }
+
+    function bumpMemberToTop(email) {
+      const list = document.getElementById('memberList');
+      const item = list.querySelector(`.member-item[data-email="${CSS.escape(email)}"]`);
+      if (item) list.prepend(item);
+    }
+
+    function markUnread(email) {
+      unreadCounts[email] = (unreadCounts[email] || 0) + 1;
+      const list = document.getElementById('memberList');
+      const item = list.querySelector(`.member-item[data-email="${CSS.escape(email)}"]`);
+      if (!item) return;
+      item.classList.add('unread');
+      let badge = item.querySelector('.unread-count');
+      if (!badge) {
+        badge = document.createElement('span');
+        badge.className = 'unread-count';
+        item.appendChild(badge);
+      }
+      badge.textContent = unreadCounts[email];
+    }
+
+    function clearUnread(email) {
+      unreadCounts[email] = 0;
+      const list = document.getElementById('memberList');
+      const item = list.querySelector(`.member-item[data-email="${CSS.escape(email)}"]`);
+      if (!item) return;
+      item.classList.remove('unread');
+      item.querySelector('.unread-count')?.remove();
+    }
+
+    // Escuta TODOS os canais DM de todos os membros para notificar o ADM
+    const listenedChannels = new Set();
+    function listenMemberChannel(member) {
+      const ch = dmChannel(member.email);
+      if (listenedChannels.has(ch)) return;
+      listenedChannels.add(ch);
+
+      // Marca o timestamp atual para ignorar mensagens antigas
+      const startTs = Date.now();
+
+      const msgsRef = query(ref(db, `chat/dms/${ch}`), limitToLast(20));
+      onChildAdded(msgsRef, snap => {
+        const m = snap.val();
+        if (!m) return;
+        // Ignora mensagens antigas (antes de abrir o painel) e mensagens do próprio ADM
+        if (!m.ts || m.ts < startTs) return;
+        if ((m.fromEmail || '').toLowerCase() === ADM_EMAIL) return;
+        // Só notifica se não está com o chat desse membro aberto
+        if (activeMemberEmail !== member.email) {
+          showToast(member.name, m.text, member.email, member.key || '');
+          markUnread(member.email);
+          bumpMemberToTop(member.email);
+        }
+      });
+    }
+
+    // Começa a ouvir todos os membros já cadastrados
+    members.forEach(m => listenMemberChannel(m));
+
+    // ── Open member chat ─────────────────────────────────────────────────────
+    function openMemberChat(email, name, key) {
+      activeMemberEmail = email;
+      clearUnread(email);
+
+      // Update top bar
+      document.getElementById('activeMemberBar').style.display = 'block';
+      document.getElementById('activeMemberName').textContent  = name;
+      document.getElementById('activeMemberKey').textContent   = key || email;
+
+      // Show/hide
+      document.getElementById('admPlaceholder').classList.add('hidden');
+      document.getElementById('admChatArea').classList.remove('hidden');
+
+      // Re-highlight in list
+      renderMemberList(document.getElementById('memberSearch')?.value || '');
+
+      // Clear messages
+      const msgBox = document.getElementById('admMessages');
+      msgBox.innerHTML = '<div style="color:var(--muted);font-size:.78rem;text-align:center;padding:12px">Carregando conversa...</div>';
+
+      // Listen to DM channel for this member
+      if (activeUnsub) { activeUnsub(); activeUnsub = null; }
+      const channel = dmChannel(email);
+      const msgsRef = query(ref(db, `chat/dms/${channel}`), limitToLast(100));
+
+      activeUnsub = onChildAdded(msgsRef, snap => {
+        const m = snap.val();
+        if (!m) return;
+        msgBox.querySelector('[style*="Carregando"]')?.remove();
+        renderDmMsg(msgBox, m, email);
+      });
+
+      // Focus input
+      setTimeout(() => document.getElementById('admChatInput')?.focus(), 100);
+    }
+
+    // ── Render DM message ────────────────────────────────────────────────────
+    function renderDmMsg(container, msg, memberEmail) {
+      const isFromAdm = (msg.fromEmail || '').toLowerCase() === ADM_EMAIL;
+      const div = document.createElement('div');
+      div.className = `chat-msg ${isFromAdm ? 'mine adm-msg' : 'theirs'}`;
+      div.innerHTML = `
+        <div class="msg-meta">
+          <b>${escapeHtml(msg.fromName || msg.toName || '?')}${isFromAdm ? ' <span class="adm-badge">ADM</span>' : ''}</b>
+          <span>${formatTime(msg.ts)}</span>
+        </div>
+        <div class="msg-bubble">${escapeHtml(msg.text)}</div>
+      `;
+      container.appendChild(div);
+      container.scrollTop = container.scrollHeight;
+    }
+
+    // ── Send message ─────────────────────────────────────────────────────────
+    const sendAdmMsg = async () => {
+      if (!activeMemberEmail) return;
+      const input  = document.getElementById('admChatInput');
+      const text   = input.value.trim();
+      if (!text) return;
+
+      const member = members.find(m => m.email === activeMemberEmail);
+      input.value = '';
+      input.disabled = true;
+
+      const channel = dmChannel(activeMemberEmail);
+      try {
+        await push(ref(db, `chat/dms/${channel}`), {
+          fromName:  user.name || 'Suporte Lumié',
+          fromEmail: ADM_EMAIL,
+          toEmail:   activeMemberEmail,
+          toName:    member?.name || '?',
+          memberId:  member?.key || '',
+          text,
+          ts: Date.now()
+        });
+      } catch(e) {
+        alert('Erro ao enviar. Verifique sua conexão.');
+      } finally {
+        input.disabled = false;
+        input.focus();
+      }
+    };
+
+    document.getElementById('admChatSend')?.addEventListener('click', sendAdmMsg);
+    document.getElementById('admChatInput')?.addEventListener('keydown', e => {
+      if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendAdmMsg(); }
+    });
+
+    // ── Logout ───────────────────────────────────────────────────────────────
+    document.getElementById('admLogout')?.addEventListener('click', () => {
+      localStorage.removeItem('lm_user');
+      location.href = 'index.html';
+    });
+
+    // ── Mobile sidebar toggle ─────────────────────────────────────────────────
+    document.getElementById('toggleSidebar')?.addEventListener('click', () => {
+      document.getElementById('admSidebar')?.classList.toggle('open');
+    });
+
+    // ── Reveal ───────────────────────────────────────────────────────────────
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries =>
+        entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('show'); }), { threshold: .1 });
+      document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+    } else {
+      document.querySelectorAll('.reveal').forEach(el => el.classList.add('show'));
+    }
+  </script>
+</body>
+</html>

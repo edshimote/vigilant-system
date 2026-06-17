@@ -1,0 +1,103 @@
+═══════════════════════════════════════════════════════════
+  LUMIÉ BEAUTY SCHOOL — CONFIGURAÇÃO DE EMAIL DE VERIFICAÇÃO
+═══════════════════════════════════════════════════════════
+
+Email remetente: lumierecodeverify@gmail.com
+Senha: lumiere200#$%544<
+
+PASSO 1 — Criar conta no EmailJS (gratuito, 200 emails/mês)
+──────────────────────────────────────────────────────────
+  1. Acesse: https://www.emailjs.com
+  2. Crie uma conta gratuita
+  3. Vá em "Email Services" → "Add New Service"
+  4. Escolha "Gmail"
+  5. Conecte com: lumierecodeverify@gmail.com (senha acima)
+  6. Anote o SERVICE ID gerado (ex: service_abc123)
+
+PASSO 2 — Criar template de email
+──────────────────────────────────────────────────────────
+  1. Vá em "Email Templates" → "Create New Template"
+  2. Configure assim:
+     - To email:  {{to_email}}
+     - To name:   {{to_name}}
+     - Subject:   Lumié Beauty School — Seu código de verificação
+     - Body:
+       ────────────────────────────────
+       Olá, {{to_name}}!
+
+       Seu código de verificação da Lumié Beauty School é:
+
+       ★  {{code}}  ★
+
+       Digite esse código na tela de cadastro para confirmar
+       seu email e liberar sua conta.
+
+       Se não foi você que solicitou, ignore este email.
+
+       — Equipe Lumié Beauty School
+       ────────────────────────────────
+  3. Salve e anote o TEMPLATE ID (ex: template_xyz789)
+
+PASSO 3 — Pegar a Public Key
+──────────────────────────────────────────────────────────
+  1. Vá em "Account" → aba "General"
+  2. Copie a "Public Key" (ex: abc123XYZ)
+
+PASSO 4 — Atualizar o script.js
+──────────────────────────────────────────────────────────
+  Abra o arquivo script.js e localize estas 3 linhas
+  (por volta da linha 186) e substitua pelos seus valores:
+
+    const EMAILJS_SERVICE  = 'service_lumiere';   ← seu Service ID
+    const EMAILJS_TEMPLATE = 'template_lumiere';  ← seu Template ID
+    const EMAILJS_PUBLIC   = 'YOUR_PUBLIC_KEY';   ← sua Public Key
+
+  Exemplo após preencher:
+    const EMAILJS_SERVICE  = 'service_abc123';
+    const EMAILJS_TEMPLATE = 'template_xyz789';
+    const EMAILJS_PUBLIC   = 'abc123XYZ';
+
+IMPORTANTE — Gmail App Password
+──────────────────────────────────────────────────────────
+  O Gmail pode bloquear login direto. Se houver erro ao
+  conectar no EmailJS, você precisa gerar uma "App Password":
+
+  1. Acesse: https://myaccount.google.com/security
+  2. Ative "Verificação em 2 etapas" (se não estiver ativa)
+  3. Vá em "Senhas de app" → crie uma para "Email"
+  4. Use essa senha gerada no EmailJS (não a senha normal)
+
+═══════════════════════════════════════════════════════════
+  MODO DESENVOLVIMENTO (sem EmailJS configurado)
+═══════════════════════════════════════════════════════════
+  Enquanto o EmailJS não estiver configurado, o sistema
+  mostra o código de verificação diretamente na tela
+  com a mensagem "⚠️ Email não configurado. Código de teste: XXXXXX"
+  
+  Isso permite testar o fluxo completo sem enviar emails.
+  Quando o EmailJS estiver configurado, o código vai apenas
+  para o email do usuário e não aparece mais na tela.
+
+═══════════════════════════════════════════════════════════
+  COMO O SUPORTE FUNCIONA
+═══════════════════════════════════════════════════════════
+  1. ALUNO acessa chat.html → aba "Suporte" → envia dúvida
+     → a dúvida aparece com o ID do membro (a KEY dele)
+
+  2. ADM (admin@lumie.com ou suporte@lumie.com) faz login
+     → acessa chat.html → aba "Suporte"
+     → vê todas as dúvidas com botão "↩ Responder"
+     → clica em "Responder" → abre painel de DM privada
+     → digita e envia → o aluno recebe em aba "Mensagem ADM"
+
+  3. ALUNO recebe a DM e vê a aba "✉️ Mensagem ADM" aparecer
+     automaticamente com notificação visual
+
+  CHAVE = ID DO MEMBRO:
+  A key de acesso (ex: LUMIE-VIT-ABCD-1234-EF56) é o
+  identificador único de cada membro. Ela aparece:
+  - No cabeçalho do chat
+  - Em cada mensagem de suporte (visível só para ADM)
+  - No perfil do aluno no dashboard
+
+═══════════════════════════════════════════════════════════
