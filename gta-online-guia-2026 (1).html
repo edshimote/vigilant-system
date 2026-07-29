@@ -1,0 +1,1088 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Guia definitivo do GTA Online 2026 em português: negócios, golpes, Cayo Perico, Diamond Casino, calculadora de lucro, checklist e roadmap para ficar rico.">
+<title>GRANA MÁXIMA — Guia Definitivo do GTA Online 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Teko:wght@500;600;700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0a12;
+    --bg-alt:#111120;
+    --panel:#15152a;
+    --panel2:#1b1b34;
+    --pink:#ff2e88;
+    --cyan:#00e5ff;
+    --purple:#8a3ffc;
+    --gold:#ffcf4d;
+    --green:#3ddc84;
+    --text:#eef0ff;
+    --muted:#9a9ac0;
+    --line:rgba(255,255,255,0.08);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter',sans-serif;
+    overflow-x:hidden;
+    position:relative;
+  }
+  body::before{
+    content:"";
+    position:fixed; inset:0;
+    background:
+      radial-gradient(ellipse 800px 500px at 15% -10%, rgba(255,46,136,0.18), transparent 60%),
+      radial-gradient(ellipse 900px 600px at 110% 10%, rgba(0,229,255,0.14), transparent 60%),
+      radial-gradient(ellipse 700px 500px at 50% 100%, rgba(138,63,252,0.15), transparent 60%);
+    pointer-events:none;
+    z-index:0;
+  }
+  .wrap{position:relative; z-index:1; max-width:1180px; margin:0 auto; padding:0 24px;}
+  a{color:var(--cyan);}
+
+  h1,h2,h3,.display{
+    font-family:'Teko',sans-serif;
+    text-transform:uppercase;
+    letter-spacing:0.5px;
+    line-height:0.95;
+  }
+  .eyebrow{
+    font-family:'JetBrains Mono',monospace;
+    font-size:12px;
+    letter-spacing:3px;
+    text-transform:uppercase;
+    color:var(--cyan);
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .eyebrow::before{content:"▸"; color:var(--pink);}
+
+  /* NAV */
+  nav.topnav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(10,10,18,0.85);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+    padding:14px 0;
+  }
+  nav.topnav .navwrap{
+    max-width:1180px; margin:0 auto; padding:0 24px;
+    display:flex; align-items:center; gap:18px;
+    overflow-x:auto;
+    scrollbar-width:none;
+  }
+  nav.topnav .navwrap::-webkit-scrollbar{display:none;}
+  nav.topnav .brandmark{font-family:'JetBrains Mono',monospace; font-size:13px; color:var(--gold); white-space:nowrap;}
+  nav.topnav a{
+    font-family:'JetBrains Mono',monospace;
+    font-size:11.5px;
+    letter-spacing:0.5px;
+    color:var(--muted);
+    text-decoration:none;
+    white-space:nowrap;
+    padding:6px 10px;
+    border-radius:6px;
+    transition:all .2s;
+  }
+  nav.topnav a:hover{color:var(--text); background:rgba(255,255,255,0.06);}
+
+  /* HERO */
+  header.hero{
+    min-height:88vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    position:relative;
+    padding-top:60px;
+    padding-bottom:60px;
+  }
+  .hero-tag{
+    font-family:'JetBrains Mono',monospace;
+    font-size:13px;
+    color:var(--gold);
+    letter-spacing:2px;
+    margin-bottom:18px;
+  }
+  h1.title{
+    font-size:clamp(52px,10vw,130px);
+    font-weight:700;
+    background:linear-gradient(100deg,#fff 10%, var(--cyan) 45%, var(--pink) 75%, var(--gold) 100%);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+    filter:drop-shadow(0 0 40px rgba(255,46,136,0.25));
+  }
+  .hero-sub{
+    max-width:680px;
+    color:var(--muted);
+    font-size:18px;
+    line-height:1.6;
+    margin-top:22px;
+  }
+  .hero-note{
+    margin-top:36px;
+    border-left:3px solid var(--gold);
+    padding:14px 18px;
+    background:rgba(255,207,77,0.06);
+    font-size:14px;
+    color:#e8dcb0;
+    max-width:680px;
+    border-radius:0 6px 6px 0;
+  }
+  .hero-stats{display:flex; gap:36px; margin-top:40px; flex-wrap:wrap;}
+  .hero-stats .stat b{font-family:'Teko',sans-serif; font-size:44px; color:var(--cyan); display:block; line-height:1;}
+  .hero-stats .stat span{font-size:12px; color:var(--muted); text-transform:uppercase; letter-spacing:1px;}
+  .hero-scroll{
+    margin-top:50px;
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;
+    color:var(--muted);
+    letter-spacing:2px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .hero-scroll .bar{width:1px; height:40px; background:linear-gradient(var(--pink), transparent);}
+
+  section{padding:90px 0;}
+  section.tight{padding:56px 0;}
+
+  h2.section-title{
+    font-size:clamp(36px,6vw,60px);
+    font-weight:600;
+    margin-top:8px;
+    margin-bottom:36px;
+  }
+  h2.section-title span{color:var(--pink);}
+  .section-desc{color:var(--muted); font-size:15.5px; line-height:1.7; max-width:760px; margin-bottom:34px;}
+
+  /* GENERIC TABLE */
+  table.rank-table{
+    width:100%;
+    border-collapse:collapse;
+    background:var(--panel);
+    border-radius:14px;
+    overflow:hidden;
+    border:1px solid var(--line);
+    font-size:14px;
+  }
+  .table-scroll{overflow-x:auto; border-radius:14px;}
+  .rank-table th{
+    font-family:'JetBrains Mono',monospace;
+    text-transform:uppercase;
+    font-size:10.5px;
+    letter-spacing:1px;
+    color:var(--muted);
+    text-align:left;
+    padding:14px 16px;
+    background:rgba(255,255,255,0.03);
+    border-bottom:1px solid var(--line);
+    white-space:nowrap;
+  }
+  .rank-table td{
+    padding:14px 16px;
+    border-bottom:1px solid var(--line);
+    font-size:14px;
+    white-space:nowrap;
+  }
+  .rank-table tr:last-child td{border-bottom:none;}
+  .rank-table tr:hover td{background:rgba(255,255,255,0.02);}
+  .medal{font-size:20px;}
+  .stars{color:var(--gold); letter-spacing:1px;}
+  .yes{color:var(--cyan); font-weight:700;}
+  .no{color:var(--pink); font-weight:700;}
+  .rankS{color:var(--gold); font-weight:800;}
+  .rankA{color:var(--green); font-weight:800;}
+  .rankB{color:var(--cyan); font-weight:800;}
+  .rankC{color:#c9a6ff; font-weight:800;}
+  .rankD{color:var(--pink); font-weight:800;}
+
+  /* CARDS GRID */
+  .cards-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(260px,1fr)); gap:20px;}
+  .card{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:26px;
+    position:relative;
+    transition:transform .25s ease, border-color .25s ease;
+  }
+  .card:hover{transform:translateY(-4px); border-color:var(--cyan);}
+  .card .icon{font-size:28px; margin-bottom:12px; display:block;}
+  .card h3{font-size:24px; font-weight:600; margin-bottom:8px; color:var(--text);}
+  .card p{color:var(--muted); font-size:14px; line-height:1.6;}
+  .card .meta-row{display:flex; flex-wrap:wrap; gap:6px; margin-top:14px;}
+
+  /* DETAIL BLOCKS (heists / businesses) */
+  .heist-block{
+    display:grid;
+    grid-template-columns:210px 1fr;
+    gap:36px;
+    padding:40px 0;
+    border-top:1px solid var(--line);
+    align-items:start;
+  }
+  .heist-block:last-child{border-bottom:1px solid var(--line);}
+  .heist-label{position:sticky; top:70px;}
+  .heist-label .num{
+    font-family:'Teko',sans-serif;
+    font-size:80px;
+    font-weight:700;
+    line-height:0.8;
+    color:transparent;
+    -webkit-text-stroke:2px var(--pink);
+  }
+  .heist-label h3{font-size:30px; margin-top:6px; color:var(--cyan);}
+  .heist-content h4{
+    font-family:'Inter',sans-serif;
+    font-size:14.5px;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    color:var(--gold);
+    margin:22px 0 10px;
+  }
+  .heist-content h4:first-child{margin-top:0;}
+  .heist-content p, .heist-content li{color:var(--muted); font-size:14.5px; line-height:1.7;}
+  .heist-content ul{padding-left:20px; margin-bottom:6px;}
+  .pill-row{display:flex; flex-wrap:wrap; gap:8px; margin-top:8px;}
+  .pill{
+    font-family:'JetBrains Mono',monospace;
+    font-size:11.5px;
+    padding:6px 12px;
+    border-radius:20px;
+    border:1px solid var(--line);
+    color:var(--text);
+  }
+  .pill.gold{border-color:var(--gold); color:var(--gold);}
+  .pill.cyan{border-color:var(--cyan); color:var(--cyan);}
+  .pill.pink{border-color:var(--pink); color:var(--pink);}
+  .pill.green{border-color:var(--green); color:var(--green);}
+
+  .mini-table{width:100%; border-collapse:collapse; margin-top:10px; font-size:14px;}
+  .mini-table th{
+    text-align:left; font-size:10.5px; text-transform:uppercase; letter-spacing:1px;
+    color:var(--muted); padding:8px 10px; border-bottom:1px solid var(--line);
+  }
+  .mini-table td{padding:8px 10px; border-bottom:1px solid var(--line); color:var(--muted);}
+  .mini-table tr:last-child td{border-bottom:none;}
+
+  /* ROUTINE */
+  .routine{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:20px;}
+  .block{background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:24px;}
+  .block .tag{
+    display:inline-block; font-family:'JetBrains Mono',monospace; font-size:11px;
+    color:var(--bg); background:var(--cyan); padding:4px 10px; border-radius:20px; margin-bottom:14px;
+  }
+  .block h4{font-size:22px; color:var(--text); margin-bottom:10px; font-family:'Inter'; text-transform:none;}
+  .block ul{padding-left:18px; color:var(--muted); font-size:14px; line-height:1.8;}
+
+  /* TIMELINE (buying order / roadmap) */
+  .timeline{position:relative; padding-left:34px; border-left:2px solid var(--line); margin-top:20px;}
+  .tl-item{position:relative; padding-bottom:36px;}
+  .tl-item:last-child{padding-bottom:0;}
+  .tl-item::before{
+    content:""; position:absolute; left:-40px; top:4px; width:14px; height:14px;
+    border-radius:50%; background:var(--pink); box-shadow:0 0 0 4px rgba(255,46,136,0.15);
+  }
+  .tl-item .range{font-family:'JetBrains Mono',monospace; color:var(--gold); font-size:13px; letter-spacing:1px;}
+  .tl-item h4{font-size:24px; margin:6px 0 8px; color:var(--text); font-family:'Inter'; text-transform:none; font-weight:700;}
+  .tl-item p{color:var(--muted); font-size:14.5px; line-height:1.7;}
+
+  /* SKIP GRID */
+  .skip-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:12px;}
+  .skip-item{
+    background:var(--panel); border:1px solid var(--line); border-radius:10px;
+    padding:14px 18px; font-size:14.5px; color:var(--muted); display:flex; align-items:center; gap:10px;
+  }
+  .skip-item .x{color:var(--pink); font-weight:800;}
+  .skip-item .check{color:var(--green); font-weight:800;}
+
+  /* PRIORITY LIST */
+  .priority-list{list-style:none; counter-reset:pr;}
+  .priority-list li{
+    counter-increment:pr;
+    display:flex; align-items:center; gap:20px;
+    padding:15px 0;
+    border-bottom:1px solid var(--line);
+    font-size:18px;
+  }
+  .priority-list li::before{
+    content:counter(pr);
+    font-family:'Teko',sans-serif;
+    font-size:32px;
+    width:44px;
+    -webkit-text-stroke:1px var(--pink);
+    color:transparent;
+  }
+
+  /* PROGRESS BAR */
+  .progress{height:8px; background:rgba(255,255,255,0.06); border-radius:10px; overflow:hidden; margin-top:8px;}
+  .progress .fill{height:100%; background:linear-gradient(90deg,var(--pink),var(--cyan)); border-radius:10px;}
+
+  /* ACCORDION (FAQ / mitos) */
+  .accordion{border:1px solid var(--line); border-radius:14px; overflow:hidden; background:var(--panel);}
+  .acc-item{border-bottom:1px solid var(--line);}
+  .acc-item:last-child{border-bottom:none;}
+  .acc-item summary{
+    list-style:none; cursor:pointer; padding:18px 22px; font-size:15.5px; font-weight:600;
+    display:flex; justify-content:space-between; align-items:center; gap:14px; color:var(--text);
+  }
+  .acc-item summary::-webkit-details-marker{display:none;}
+  .acc-item summary::after{content:"+"; font-size:22px; color:var(--pink); transition:transform .2s; flex-shrink:0;}
+  .acc-item[open] summary::after{transform:rotate(45deg);}
+  .acc-item .acc-body{padding:0 22px 20px; color:var(--muted); font-size:14.5px; line-height:1.7;}
+
+  /* CALCULATOR */
+  .calc-box{
+    background:var(--panel); border:1px solid var(--line); border-radius:18px; padding:34px;
+    display:grid; grid-template-columns:1fr 1fr; gap:32px;
+  }
+  .calc-inputs label{display:block; font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:1px; text-transform:uppercase; color:var(--muted); margin-bottom:6px; margin-top:18px;}
+  .calc-inputs label:first-child{margin-top:0;}
+  .calc-inputs input{
+    width:100%; background:var(--bg-alt); border:1px solid var(--line); border-radius:8px;
+    padding:12px 14px; color:var(--text); font-size:15px; font-family:'Inter';
+  }
+  .calc-inputs input:focus{outline:none; border-color:var(--cyan);}
+  .calc-results .result-row{display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px solid var(--line); font-size:15px;}
+  .calc-results .result-row b{color:var(--cyan); font-family:'JetBrains Mono',monospace;}
+  .goal-grid{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:16px;}
+  .goal-card{background:var(--bg-alt); border:1px solid var(--line); border-radius:10px; padding:12px 14px;}
+  .goal-card .goal-name{font-size:12px; color:var(--muted); font-family:'JetBrains Mono',monospace;}
+  .goal-card .goal-time{font-size:20px; color:var(--gold); font-family:'Teko'; margin-top:2px;}
+  @media(max-width:800px){.calc-box{grid-template-columns:1fr;}}
+
+  /* CHECKLIST */
+  .checklist-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:14px;}
+  .check-card{
+    background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px 18px;
+    display:flex; align-items:center; gap:12px; cursor:pointer; user-select:none; transition:border-color .2s;
+  }
+  .check-card:hover{border-color:var(--cyan);}
+  .check-card input{width:20px; height:20px; accent-color:var(--pink); flex-shrink:0;}
+  .check-card span{font-size:14.5px; color:var(--text);}
+  .checklist-result{
+    margin-top:26px; padding:20px 24px; border-radius:14px; border:1px solid var(--gold);
+    background:rgba(255,207,77,0.06); font-size:15.5px; color:#e8dcb0;
+  }
+
+  /* COMPARISON */
+  .vs-row{display:grid; grid-template-columns:1fr auto 1fr; gap:20px; align-items:center; margin-bottom:16px;}
+  .vs-card{background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:20px;}
+  .vs-card h4{font-size:20px; color:var(--cyan); margin-bottom:8px; font-family:'Inter'; text-transform:none;}
+  .vs-card p{color:var(--muted); font-size:14px; line-height:1.6;}
+  .vs-mid{font-family:'Teko',sans-serif; font-size:26px; color:var(--pink);}
+
+  footer{
+    padding:56px 0 40px; border-top:1px solid var(--line); color:var(--muted); font-size:13px;
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;
+  }
+  footer .brand{font-family:'JetBrains Mono',monospace; color:var(--text);}
+
+  .chapter-nav-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:14px;}
+  .chapter-link{
+    display:block; background:var(--panel); border:1px solid var(--line); border-radius:12px;
+    padding:18px 20px; text-decoration:none; transition:border-color .2s, transform .2s;
+  }
+  .chapter-link:hover{border-color:var(--pink); transform:translateY(-3px);}
+  .chapter-link .cnum{font-family:'JetBrains Mono',monospace; color:var(--gold); font-size:11px; letter-spacing:1px;}
+  .chapter-link h4{color:var(--text); font-size:20px; margin-top:4px; font-family:'Inter'; text-transform:none;}
+
+  @media(max-width:760px){
+    .heist-block{grid-template-columns:1fr;}
+    .heist-label{position:static;}
+    .heist-label .num{font-size:56px;}
+    .rank-table{font-size:12.5px;}
+    .rank-table th, .rank-table td{padding:10px 8px;}
+    .vs-row{grid-template-columns:1fr; text-align:left;}
+    .vs-mid{justify-self:start;}
+  }
+
+  ::selection{background:var(--pink); color:#fff;}
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="navwrap">
+    <span class="brandmark">// GRANA_MÁXIMA</span>
+    <a href="#ranking">Ranking</a>
+    <a href="#lucro-hora">Lucro/h</a>
+    <a href="#negocios">Negócios</a>
+    <a href="#golpes">Golpes</a>
+    <a href="#cayo">Cayo</a>
+    <a href="#cassino">Cassino</a>
+    <a href="#veiculos-voadores">MK II/Sparrow</a>
+    <a href="#ordem-compra">Ordem de compra</a>
+    <a href="#rotinas">Rotinas</a>
+    <a href="#cooldowns">Cooldowns</a>
+    <a href="#veiculos">Veículos</a>
+    <a href="#propriedades">Propriedades</a>
+    <a href="#erros">Erros</a>
+    <a href="#mitos">Mitos</a>
+    <a href="#comparacoes">Comparações</a>
+    <a href="#calculadora">Calculadora</a>
+    <a href="#checklist">Checklist</a>
+    <a href="#roadmap">Roadmap</a>
+    <a href="#faq">FAQ</a>
+    <a href="#atualizacoes">Atualizações</a>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <header class="hero">
+    <div class="hero-tag">// GUIA DEFINITIVO — ATUALIZADO JULHO 2026</div>
+    <h1 class="title">GRANA<br>MÁXIMA</h1>
+    <p class="hero-sub">O guia mais completo do GTA Online em português: não é só sobre golpes — é sobre construir um sistema de renda que trabalha por você, do zero até o primeiro bilhão. Negócios, golpes, rotinas, veículos, calculadora e o passo a passo exato para nunca ficar parado.</p>
+    <div class="hero-note">⚠ A economia do GTA Online muda toda semana com os bônus da Rockstar (2x, 3x em golpes, negócios ou vendas específicas). Os números deste guia são médias em semana normal — trate bônus semanais como multiplicadores temporários sobre esta base, não como a regra.</div>
+    <div class="hero-stats">
+      <div class="stat"><b>10</b><span>Capítulos</span></div>
+      <div class="stat"><b>17</b><span>Negócios cobertos</span></div>
+      <div class="stat"><b>9</b><span>Golpes detalhados</span></div>
+      <div class="stat"><b>60+</b><span>Perguntas respondidas</span></div>
+    </div>
+    <div class="hero-scroll"><div class="bar"></div>ROLE PRA BAIXO</div>
+  </header>
+
+  <section class="tight" id="intro">
+    <div class="eyebrow">Introdução</div>
+    <h2 class="section-title">Como usar <span>este guia</span></h2>
+    <p class="section-desc">Este site não segue a ordem tradicional de "10 dicas de golpe". Ele é organizado como um livro: começa explicando como a economia do GTA Online funciona por baixo dos panos, depois mostra exatamente o que fazer em cada fase do jogo — de zero até bilionário — e termina com referências rápidas (tabelas, calculadora, checklist) para você consultar sempre que precisar decidir "o que eu faço agora com o tempo que eu tenho". Use o menu no topo para pular direto para qualquer capítulo.</p>
+    <div class="chapter-nav-grid">
+      <a class="chapter-link" href="#economia"><div class="cnum">CAP. 01</div><h4>A economia do jogo</h4></a>
+      <a class="chapter-link" href="#ordem-compra"><div class="cnum">CAP. 02</div><h4>Como sair do zero</h4></a>
+      <a class="chapter-link" href="#negocios"><div class="cnum">CAP. 03</div><h4>Melhores negócios</h4></a>
+      <a class="chapter-link" href="#golpes"><div class="cnum">CAP. 04</div><h4>Melhores golpes</h4></a>
+      <a class="chapter-link" href="#rotinas"><div class="cnum">CAP. 05</div><h4>Rotação perfeita</h4></a>
+      <a class="chapter-link" href="#roadmap"><div class="cnum">CAP. 06</div><h4>Como ganhar bilhões</h4></a>
+      <a class="chapter-link" href="#erros"><div class="cnum">CAP. 07</div><h4>Erros que custam dinheiro</h4></a>
+      <a class="chapter-link" href="#faq"><div class="cnum">CAP. 08</div><h4>Perguntas frequentes</h4></a>
+      <a class="chapter-link" href="#atualizacoes"><div class="cnum">CAP. 09</div><h4>Atualizações da Rockstar</h4></a>
+      <a class="chapter-link" href="#conclusao"><div class="cnum">CAP. 10</div><h4>Conclusão</h4></a>
+    </div>
+  </section>
+
+  <section id="economia">
+    <div class="eyebrow">Capítulo 01</div>
+    <h2 class="section-title">A <span>economia</span> do GTA Online</h2>
+    <p class="section-desc">Entender a lógica por trás do dinheiro no jogo evita 90% dos erros de iniciante. Três ideias resolvem quase tudo:</p>
+    <div class="cards-grid">
+      <div class="card"><span class="icon">⚙️</span><h3>Ativo vs. Passivo</h3><p>Renda <strong style="color:var(--text)">ativa</strong> (golpes, Cayo, missões CEO) exige você jogando naquele minuto, mas paga rápido e em grandes quantias. Renda <strong style="color:var(--text)">passiva</strong> (bunker, boate, laboratório de ácido) produz estoque sozinha em segundo plano, mas rende menos por hora e precisa ser vendida. O jogador rico usa os dois ao mesmo tempo: liga os negócios passivos e, enquanto eles produzem, sai para fazer Cayo ou Cassino.</p></div>
+      <div class="card"><span class="icon">🚧</span><h3>Investimento trava progresso</h3><p>Quase todo conteúdo de alto lucro (Cayo, Cassino, negócios) exige comprar uma propriedade antes. É por isso que o início do jogo é lento: você está pagando o "ingresso" para desbloquear os métodos que realmente pagam bem. Depois desse investimento inicial, o lucro por hora dispara.</p></div>
+      <div class="card"><span class="icon">📅</span><h3>Bônus semanais mudam tudo</h3><p>A Rockstar roda promoções semanais (2x ou 3x GTA$ em um golpe, negócio ou veículo específico). Nessas semanas, a prioridade muda: o que está bonificado sobe no ranking temporariamente. Sempre confira o painel de eventos no jogo antes de decidir sua rotina do dia.</p></div>
+    </div>
+  </section>
+
+  <section class="tight" id="ranking">
+    <div class="eyebrow">Visão geral</div>
+    <h2 class="section-title">Ranking <span>Geral</span> 2026</h2>
+    <p class="section-desc">Ranking de referência para uma semana sem bônus especiais, considerando lucro por hora, dificuldade e se pode ser feito sozinho.</p>
+    <div class="table-scroll">
+    <table class="rank-table">
+      <thead><tr><th>Pos.</th><th>Atividade</th><th>Vale a pena?</th><th>Solo?</th></tr></thead>
+      <tbody>
+        <tr><td class="medal">🥇</td><td>Cayo Perico</td><td class="stars">★★★★★</td><td class="yes">✅ SIM</td></tr>
+        <tr><td class="medal">🥈</td><td>Diamond Casino Heist</td><td class="stars">★★★★★</td><td class="no">❌ Melhor em 2–4</td></tr>
+        <tr><td class="medal">🥉</td><td>Cluckin' Bell Farm Raid</td><td class="stars">★★★★☆</td><td class="yes">✅ SIM</td></tr>
+        <tr><td class="medal">4</td><td>Bunker + Boate rodando junto</td><td class="stars">★★★★☆</td><td class="yes">✅ SIM</td></tr>
+        <tr><td class="medal">5</td><td>Golpe do Juízo Final</td><td class="stars">★★★☆☆</td><td class="no">❌ Grupo</td></tr>
+        <tr><td class="medal">6</td><td>Laboratório de Ácido</td><td class="stars">★★★☆☆</td><td class="yes">✅ SIM</td></tr>
+        <tr><td class="medal">7</td><td>Pacific Standard / clássicos</td><td class="stars">★★☆☆☆</td><td class="no">❌ Grupo</td></tr>
+        <tr><td class="medal">8</td><td>Contact missions / Taxi / VIP work</td><td class="stars">★★☆☆☆</td><td class="yes">✅ SIM (só early game)</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </section>
+
+  <section id="lucro-hora">
+    <div class="eyebrow">Referência rápida</div>
+    <h2 class="section-title">Lucro <span>por Hora</span></h2>
+    <p class="section-desc">Estimativas médias para um jogador com upgrades bons, em semana sem bônus. "Solo" considera jogar sozinho o tempo todo; em dupla os números de golpe de grupo melhoram bastante porque dividem o tempo de preparação. Trate como ordem de grandeza, não como garantia — sua execução e a sorte do loot mudam o resultado.</p>
+    <div class="table-scroll">
+    <table class="rank-table">
+      <thead><tr><th>Atividade</th><th>Tempo médio</th><th>Lucro/h (aprox.)</th><th>Dificuldade</th><th>Solo/Grupo</th><th>Precisa propriedade?</th><th>Nota</th></tr></thead>
+      <tbody>
+        <tr><td>Cayo Perico (loot bom)</td><td>15–25 min</td><td>$1.5M–$2.5M</td><td>Média</td><td>Ambos</td><td class="yes">Sim (Kosatka)</td><td class="rankS">S</td></tr>
+        <tr><td>Diamond Casino (Big Con, Diamantes)</td><td>25–40 min</td><td>$1M–$1.8M</td><td>Média</td><td>Grupo (2–4)</td><td class="yes">Sim (Arcade)</td><td class="rankS">S</td></tr>
+        <tr><td>Cluckin' Bell Farm Raid</td><td>20–30 min</td><td>$900K–$1.3M</td><td>Média/Alta</td><td>Ambos</td><td class="no">Não</td><td class="rankA">A</td></tr>
+        <tr><td>Bunker (venda cheia)</td><td>~2h produzir + 20 min vender</td><td>$250K–$500K</td><td>Baixa</td><td>Ambos</td><td class="yes">Sim</td><td class="rankB">B</td></tr>
+        <tr><td>Laboratório de Ácido</td><td>~1h produzir + 15 min vender</td><td>$300K–$550K</td><td>Baixa</td><td>Ambos</td><td class="yes">Sim</td><td class="rankB">B</td></tr>
+        <tr><td>Boate (com todos os armazéns)</td><td>Passivo + venda de 20–30 min</td><td>$200K–$400K</td><td>Baixa</td><td>Ambos</td><td class="yes">Sim</td><td class="rankB">B</td></tr>
+        <tr><td>Golpe do Juízo Final (finale)</td><td>~1h total</td><td>$400K–$700K</td><td>Alta</td><td>Grupo</td><td class="yes">Sim (Agência)</td><td class="rankB">B</td></tr>
+        <tr><td>Hangar (contrabando de ar)</td><td>~1h30 produzir + venda</td><td>$150K–$300K</td><td>Baixa</td><td>Ambos</td><td class="yes">Sim</td><td class="rankC">C</td></tr>
+        <tr><td>Terrorbyte (Serviços de Cliente)</td><td>10–20 min/missão</td><td>$100K–$250K</td><td>Baixa</td><td>Ambos</td><td class="yes">Sim</td><td class="rankC">C</td></tr>
+        <tr><td>Salvage Yard / Auto Shop</td><td>Variável</td><td>$100K–$200K</td><td>Baixa</td><td>Ambos</td><td class="yes">Sim</td><td class="rankC">C</td></tr>
+        <tr><td>Golpes clássicos (Fleeca, Series A...)</td><td>30–90 min</td><td>$80K–$200K</td><td>Média</td><td>Grupo</td><td class="no">Não</td><td class="rankD">D</td></tr>
+        <tr><td>Contact missions / VIP work</td><td>5–10 min</td><td>$40K–$90K</td><td>Baixa</td><td>Ambos</td><td class="no">Não</td><td class="rankD">D</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </section>
+
+  <section id="ordem-compra">
+    <div class="eyebrow">Capítulo 02</div>
+    <h2 class="section-title">Como sair <span>do Zero</span></h2>
+    <p class="section-desc">Ordem de compra recomendada por faixa de patrimônio. A lógica: primeiro desbloqueie renda ativa forte (Cayo), depois construa a base passiva, só então invista em conveniência (Oppressor MK II, Sparrow).</p>
+    <div class="timeline">
+      <div class="tl-item"><div class="range">$0 → $2M</div><h4>Fundamentos gratuitos</h4><p>Foque em contact missions, Taxi Work, corridas e o primeiro apartamento com heist (Fleeca/Series A pelo modo história de golpes) para juntar o capital inicial. Evite comprar veículos caros aqui — o objetivo único é chegar aos $2M.</p></div>
+      <div class="tl-item"><div class="range">$2M → $5M</div><h4>Kosatka (Cayo Perico)</h4><p>Prioridade máxima. O submarino desbloqueia o golpe solo mais lucrativo do jogo. Compre a versão básica — os upgrades de armas do submarino não são essenciais no início.</p></div>
+      <div class="tl-item"><div class="range">$5M → $10M</div><h4>Bunker + Agência</h4><p>Bunker vira sua primeira renda passiva estável. A Agência abre o Golpe do Juízo Final e serve de base para o Terrorbyte depois.</p></div>
+      <div class="tl-item"><div class="range">$10M → $20M</div><h4>Boate + Terrorbyte</h4><p>A Boate compra estoque de outros negócios automaticamente com gerentes e vira o hub de venda mais eficiente do jogo. O Terrorbyte libera mais missões de renda ativa.</p></div>
+      <div class="tl-item"><div class="range">$20M → $50M</div><h4>Arcade (Diamond Casino) + Acid Lab</h4><p>Com um grupo fixo de 2–4 amigos, o Cassino se torna extremamente lucrativo. O Laboratório de Ácido é o negócio passivo com melhor custo-benefício por metro quadrado de gerenciamento.</p></div>
+      <div class="tl-item"><div class="range">$50M → $100M</div><h4>Oppressor MK II</h4><p>Não é sobre combate — é sobre economizar tempo de deslocamento em quase todas as preparações e vendas. Compre quando o "tempo perdido dirigindo" já estiver incomodando de verdade.</p></div>
+      <div class="tl-item"><div class="range">$100M → $500M</div><h4>Sparrow, Auto Shop, imóveis de luxo</h4><p>Aqui o dinheiro deixa de ser o gargalo. Compre o que faz sua rotina mais agradável: Sparrow como alternativa mais barata de deslocamento aéreo, Auto Shop para variar a rotina com Contratos de Cliente.</p></div>
+      <div class="tl-item"><div class="range">$500M → $1B+</div><h4>Modo "colecionador"</h4><p>Nessa faixa você já tem tudo que gera dinheiro relevante. O resto é propriedades de luxo, veículos raros e itens estéticos — não afeta mais seu lucro por hora.</p></div>
+    </div>
+  </section>
+
+  <section id="negocios">
+    <div class="eyebrow">Capítulo 03</div>
+    <h2 class="section-title">Todos os <span>Negócios</span></h2>
+    <p class="section-desc">Negócios são a espinha dorsal da renda passiva. Aqui vai o que cada um entrega, quanto custa entrar e se realmente vale a pena em 2026.</p>
+
+    <div class="heist-block">
+      <div class="heist-label"><div class="num">01</div><h3>Bunker</h3><p style="color:var(--muted); font-size:13px;">Renda passiva base</p></div>
+      <div class="heist-content">
+        <p>Produz armas para vender. É o primeiro negócio passivo que todo jogador deveria comprar depois do Cayo, por custo relativamente baixo e retorno consistente.</p>
+        <h4>Números</h4>
+        <table class="mini-table"><tr><th>Investimento</th><th>Rende/dia (jogando pouco)</th><th>Rende/semana ativo</th></tr>
+        <tr><td>~$1.6M–$4M (imóvel + upgrades)</td><td>$150K–$300K</td><td>$1M–$2.5M</td></tr></table>
+        <h4>Melhores upgrades</h4>
+        <div class="pill-row"><span class="pill green">Equipamento (produção mais rápida)</span><span class="pill green">Staff (economiza tempo)</span></div>
+        <h4>Piores upgrades</h4>
+        <div class="pill-row"><span class="pill pink">Decoração de estilo sem função</span></div>
+        <h4>Erros comuns</h4>
+        <p>Deixar o estoque parado no máximo sem vender (produção para); esquecer de reabastecer suprimentos.</p>
+      </div>
+    </div>
+
+    <div class="heist-block">
+      <div class="heist-label"><div class="num">02</div><h3>Boate</h3><p style="color:var(--muted); font-size:13px;">O multiplicador</p></div>
+      <div class="heist-content">
+        <p>Não produz sozinha um produto próprio de peso — sua força é comprar automaticamente o estoque de outros negócios (bunker, laboratório, hangar etc.) através de gerentes, sem você precisar visitar cada um.</p>
+        <h4>Números</h4>
+        <table class="mini-table"><tr><th>Investimento</th><th>Rende/venda cheia</th></tr>
+        <tr><td>~$1.7M base + gerentes de cada negócio vinculado</td><td>$200K–$400K</td></tr></table>
+        <h4>Melhores upgrades</h4>
+        <div class="pill-row"><span class="pill green">Todos os 5 armazéns de gerente (se já tiver os negócios)</span></div>
+        <h4>Erros comuns</h4>
+        <p>Comprar a Boate antes de ter nenhum outro negócio — ela só compensa de verdade quando alimenta bunker, laboratório, hangar etc.</p>
+      </div>
+    </div>
+
+    <div class="heist-block">
+      <div class="heist-label"><div class="num">03</div><h3>Laboratório de Ácido</h3><p style="color:var(--muted); font-size:13px;">Melhor custo-benefício</p></div>
+      <div class="heist-content">
+        <p>Produção rápida, venda ágil, pouco gerenciamento. Um dos negócios com melhor relação lucro/tempo investido do jogo.</p>
+        <h4>Números</h4>
+        <table class="mini-table"><tr><th>Investimento</th><th>Rende/venda cheia</th></tr>
+        <tr><td>~$1.3M–$2M</td><td>$130K–$200K</td></tr></table>
+        <h4>Vale a pena?</h4>
+        <p class="yes" style="font-size:14.5px;">✅ Sim, principalmente como complemento ao bunker.</p>
+      </div>
+    </div>
+
+    <div class="heist-block">
+      <div class="heist-label"><div class="num">04</div><h3>Agência</h3><p style="color:var(--muted); font-size:13px;">Porta de entrada VIP</p></div>
+      <div class="heist-content">
+        <p>Necessária para o Golpe do Juízo Final e para comprar o Terrorbyte. Também dá acesso ao Contrato do Dr. Dre (missões de renda ativa recorrente).</p>
+        <h4>Vale a pena?</h4>
+        <p class="yes" style="font-size:14.5px;">✅ Sim — mais pela porta que abre do que pela renda direta.</p>
+      </div>
+    </div>
+
+    <div class="heist-block">
+      <div class="heist-label"><div class="num">05</div><h3>Hangar</h3><p style="color:var(--muted); font-size:13px;">Contrabando aéreo</p></div>
+      <div class="heist-content">
+        <p>Rende menos por hora que bunker e laboratório e exige mais tempo voando para coletar cargas. Ainda é usado por quem já tem tudo e quer diversificar, mas não é prioridade de compra.</p>
+        <h4>Vale a pena?</h4>
+        <p style="font-size:14.5px;">⚠ Só depois de já ter bunker, boate e laboratório rodando.</p>
+      </div>
+    </div>
+
+    <div class="heist-block">
+      <div class="heist-label"><div class="num">06</div><h3>Escritório CEO</h3><p style="color:var(--muted); font-size:13px;">Requisito estrutural</p></div>
+      <div class="heist-content">
+        <p>Necessário para virar CEO e comprar a maioria dos outros negócios (bunker, boate, hangar). Compre o mais barato disponível — o valor está no status de CEO, não na decoração do escritório.</p>
+      </div>
+    </div>
+
+    <div class="heist-block">
+      <div class="heist-label"><div class="num">07</div><h3>Fábrica de Documentos Falsos</h3><p style="color:var(--muted); font-size:13px;">Legado</p></div>
+      <div class="heist-content"><p>Negócio mais antigo do ciclo de contrabando (junto com Metanfetamina, Cocaína, Ferro-Velho). Ainda funciona, mas rende menos por hora que bunker/laboratório e exige mais deslocamento. Bom apenas se você já possui o imóvel de antes.</p></div>
+    </div>
+
+    <div class="heist-block">
+      <div class="heist-label"><div class="num">08</div><h3>Terrorbyte</h3><p style="color:var(--muted); font-size:13px;">Hub de missões</p></div>
+      <div class="heist-content"><p>Veículo-base para os Serviços de Cliente (missões rápidas e recorrentes) e para gerenciar negócios remotamente. Ótimo complemento depois que os negócios principais já estão de pé.</p></div>
+    </div>
+
+    <div class="heist-block">
+      <div class="heist-label"><div class="num">09</div><h3>Kosatka</h3><p style="color:var(--muted); font-size:13px;">Sua prioridade nº 1</p></div>
+      <div class="heist-content"><p>Submarino que desbloqueia o Cayo Perico. Não é opcional — é o primeiro grande investimento que todo jogador deveria fazer assim que tiver os $2M+ necessários.</p></div>
+    </div>
+
+    <div class="heist-block">
+      <div class="heist-label"><div class="num">10</div><h3>Auto Shop</h3><p style="color:var(--muted); font-size:13px;">Variedade + carros</p></div>
+      <div class="heist-content"><p>Contratos de Cliente pagam bem por missão curta e você ainda customiza carros. Não é sua principal fonte de renda, mas quebra a rotina e paga razoavelmente bem.</p></div>
+    </div>
+
+    <div class="heist-block">
+      <div class="heist-label"><div class="num">11</div><h3>Salvage Yard</h3><p style="color:var(--muted); font-size:13px;">Complementar</p></div>
+      <div class="heist-content"><p>Negócio de recuperação de sucata ligado ao Auto Shop. Renda modesta, boa para preencher tempo entre outras vendas.</p></div>
+    </div>
+  </section>
+
+  <section class="tight" id="golpes">
+    <div class="eyebrow">Capítulo 04</div>
+    <h2 class="section-title">Todos os <span>Golpes</span></h2>
+    <div class="table-scroll">
+    <table class="rank-table">
+      <thead><tr><th>Golpe</th><th>Lucro (finale)</th><th>Tempo total</th><th>Dificuldade</th><th>Solo?</th><th>Vale a pena?</th></tr></thead>
+      <tbody>
+        <tr><td>Cayo Perico</td><td>$900K–$1.4M+</td><td>15–25 min</td><td>Média</td><td class="yes">Sim</td><td class="stars">★★★★★</td></tr>
+        <tr><td>Diamond Casino</td><td>$1.2M–$3.6M (dividido)</td><td>25–40 min</td><td>Média</td><td class="no">2–4 jog.</td><td class="stars">★★★★★</td></tr>
+        <tr><td>Cluckin' Bell Farm Raid</td><td>~$1M</td><td>20–30 min</td><td>Média/Alta</td><td class="yes">Sim</td><td class="stars">★★★★☆</td></tr>
+        <tr><td>Golpe do Juízo Final (3 atos)</td><td>$2.1M dividido em grupo</td><td>~2–3h total</td><td>Alta</td><td class="no">Grupo</td><td class="stars">★★★☆☆</td></tr>
+        <tr><td>Pacific Standard</td><td>~$1.3M dividido</td><td>~1h</td><td>Média</td><td class="no">Grupo</td><td class="stars">★★★☆☆</td></tr>
+        <tr><td>Humane Labs Raid</td><td>~$500K dividido</td><td>~40 min</td><td>Média</td><td class="no">Grupo</td><td class="stars">★★☆☆☆</td></tr>
+        <tr><td>Series A Funding</td><td>~$500K dividido</td><td>~40 min</td><td>Média</td><td class="no">Grupo</td><td class="stars">★★☆☆☆</td></tr>
+        <tr><td>Prison Break</td><td>~$400K dividido</td><td>~30 min</td><td>Baixa</td><td class="no">Grupo</td><td class="stars">★★☆☆☆</td></tr>
+        <tr><td>Fleeca Job</td><td>~$100K dividido</td><td>~15 min</td><td>Baixa</td><td class="no">Grupo</td><td class="stars">★☆☆☆☆</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="section-desc" style="margin-top:24px;">Os golpes clássicos (Fleeca até Pacific Standard) são ótimos para desbloquear conteúdo e aprender mecânicas, mas depois que você tem Cayo e Cassino liberados, eles viram entretenimento, não estratégia de farm.</p>
+  </section>
+
+  <section id="cayo">
+    <div class="eyebrow">Guia completo</div>
+    <h2 class="section-title">Cayo <span>Perico</span></h2>
+    <div class="heist-block">
+      <div class="heist-label"><div class="num">01</div><h3>O rei do solo</h3></div>
+      <div class="heist-content">
+        <h4>Ranking de alvos principais</h4>
+        <div class="pill-row">
+          <span class="pill gold">🥇 Estátua da Pantera (quando disponível em evento)</span>
+          <span class="pill gold">🥈 Diamante Rosa</span>
+          <span class="pill">🥉 Títulos ao Portador</span>
+          <span class="pill">4️⃣ Colar de Rubi</span>
+          <span class="pill" style="opacity:0.6;">5️⃣ Garrafa de Tequila (evite se puder escolher)</span>
+        </div>
+        <h4>Ranking de loot secundário</h4>
+        <table class="mini-table"><tr><th>Solo</th><th>Dupla+</th></tr>
+        <tr><td>Cocaína</td><td>Ouro</td></tr>
+        <tr><td>Quadros</td><td>Cocaína</td></tr>
+        <tr><td>Maconha</td><td>Quadros</td></tr>
+        <tr><td>Dinheiro em espécie</td><td>—</td></tr></table>
+        <h4>Rota e entrada recomendada</h4>
+        <p>Túnel de Drenagem é a entrada mais consistente para solo: chegada discreta, poucos guardas no caminho, saída rápida pela água. Ignore preparações opcionais que não mudam sua abordagem furtiva — elas custam tempo sem elevar o lucro.</p>
+        <h4>Preparações obrigatórias vs. inúteis</h4>
+        <div class="pill-row">
+          <span class="pill green">✅ Scanner (para saber o alvo principal)</span>
+          <span class="pill green">✅ Código do cofre / impressão digital (se for a entrada do cofre)</span>
+          <span class="pill pink">✕ Preparações extras que só mudam a "história" da abordagem</span>
+        </div>
+        <h4>Guardas: quem matar, quem ignorar</h4>
+        <p>Elimine apenas quem está no seu caminho direto até o alvo e a saída. Perseguir guardas fora de rota é a forma mais comum de perder tempo e disparar alarme à toa.</p>
+        <h4>Como fazer em menos de 10 minutos</h4>
+        <ul>
+          <li>Entre pelo túnel sem ser visto</li>
+          <li>Vá direto ao cofre/alvo principal, sem desvios</li>
+          <li>Pegue o melhor secundário no caminho da saída, nunca fora dele</li>
+          <li>Fuja pela água assim que o alarme disparar (ou antes)</li>
+        </ul>
+        <h4>Cooldown e rotina</h4>
+        <p>O intervalo entre golpes permite emendar outra atividade (venda de negócio, missão do Terrorbyte) enquanto o próximo Cayo prepara. Isso é a base da "rotação perfeita" do Capítulo 05.</p>
+        <h4>Erros comuns</h4>
+        <p>Insistir em matar todos os guardas do mapa; escolher entrada errada para o loot sorteado; ignorar o scanner e perder tempo procurando o alvo às cegas.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="cassino">
+    <div class="eyebrow">Guia completo</div>
+    <h2 class="section-title">Diamond <span>Casino</span></h2>
+    <div class="heist-block">
+      <div class="heist-label"><div class="num">02</div><h3>O melhor em dupla</h3></div>
+      <div class="heist-content">
+        <h4>Ranking de alvos</h4>
+        <div class="pill-row">
+          <span class="pill gold">🥇 Diamantes (quando em evento)</span>
+          <span class="pill">🥈 Arte</span>
+          <span class="pill">🥉 Ouro</span>
+          <span class="pill" style="opacity:0.6;">4️⃣ Dinheiro</span>
+        </div>
+        <p>Arte tem a coleta mais rápida do jogo e excelente lucro por minuto — ótima escolha padrão. Ouro paga mais por unidade, mas demora mais e exige melhor coordenação de equipe. Dinheiro é o pior alvo em lucro por hora.</p>
+        <h4>Abordagens</h4>
+        <table class="mini-table"><tr><th>Abordagem</th><th>Perfil</th></tr>
+        <tr><td>🥇 Big Con</td><td>Mais fácil, quase sem combate, maior taxa de sucesso — recomendada para a maioria dos grupos</td></tr>
+        <tr><td>🥈 Silent & Sneaky</td><td>Excelente quando bem executada, exige prática e comunicação</td></tr>
+        <tr><td>🥉 Aggressive</td><td>Divertida, mas normalmente reduz o lucro líquido pelo custo de munição/veículos e reinícios</td></tr></table>
+        <h4>Melhor hacker, armas e fuga</h4>
+        <p><strong style="color:var(--text)">Hacker:</strong> sempre o de maior nível disponível — mais tempo dentro do cofre equivale a mais dinheiro coletado.<br>
+        <strong style="color:var(--text)">Armas:</strong> qualquer arma boa resolve; não vale gastar em upgrades exclusivos para isso.<br>
+        <strong style="color:var(--text)">Fuga:</strong> na prática, muitos grupos trocam de veículo durante a fuga; o carro de fuga planejado importa menos do que parece.</p>
+        <h4>Como nunca perder dinheiro no golpe</h4>
+        <p>Escolha sempre Big Con quando o grupo não tiver prática; evite abordagem agressiva com jogadores novos; confirme o alvo do dia antes de gastar preparações caras.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="tight" id="veiculos-voadores">
+    <div class="eyebrow">Guias de veículo</div>
+    <h2 class="section-title">MK II, <span>Sparrow</span> e Kosatka</h2>
+    <div class="cards-grid">
+      <div class="card">
+        <span class="icon">🛵</span><h3>Oppressor MK II</h3>
+        <p>Moto voadora com mísseis teleguiados. Seu valor real não é combate — é economia de tempo de deslocamento em quase toda preparação e venda do jogo.</p>
+        <p><strong style="color:var(--text)">Quando comprar:</strong> assim que o tempo perdido dirigindo entre missões começar a incomodar (normalmente na faixa de $50M+ patrimônio).<br>
+        <strong style="color:var(--text)">Quando não comprar:</strong> se você ainda não tem negócios rodando — não há o que "economizar tempo" ainda.<br>
+        <strong style="color:var(--text)">Quanto tempo economiza:</strong> em muitas preparações, corta o deslocamento de vários minutos para segundos, o que se acumula muito ao longo de uma sessão longa.</p>
+      </div>
+      <div class="card">
+        <span class="icon">🚁</span><h3>Sparrow</h3>
+        <p>Helicóptero leve, muito mais barato que o Oppressor MK II, guardado na Kosatka. Boa alternativa de deslocamento aéreo para quem já tem o submarino mas ainda não quer gastar no MK II.</p>
+        <p><strong style="color:var(--text)">Use o Sparrow quando:</strong> precisar de mobilidade aérea barata e não depender de mísseis para se defender.<br>
+        <strong style="color:var(--text)">Use o Oppressor quando:</strong> quiser velocidade máxima e capacidade de combate contra outros jogadores.</p>
+      </div>
+      <div class="card">
+        <span class="icon">🚢</span><h3>Kosatka</h3>
+        <p>Submarino sede do Cayo Perico. Compra obrigatória — sem ela não existe acesso ao melhor golpe solo do jogo. Os upgrades de armamento do submarino são opcionais e não aumentam o lucro do golpe em si.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="rotinas">
+    <div class="eyebrow">Capítulo 05</div>
+    <h2 class="section-title">Rotação <span>Perfeita</span></h2>
+    <p class="section-desc">A ideia central: nunca deixar negócios parados enquanto você faz golpes, e nunca ficar sem o que fazer enquanto os negócios produzem. Abaixo, rotinas por tempo disponível.</p>
+    <div class="routine">
+      <div class="block"><div class="tag">1 hora</div><h4>Sessão curta</h4><ul><li>1x Cayo Perico completo</li><li>Vender 1 negócio se já estiver cheio</li></ul></div>
+      <div class="block"><div class="tag">2 horas</div><h4>Sessão padrão solo</h4><ul><li>Cayo Perico</li><li>Vender bunker/laboratório</li><li>Reabastecer suprimentos</li><li>2º Cayo se o cooldown permitir</li></ul></div>
+      <div class="block"><div class="tag">3 horas</div><h4>Sessão padrão dupla</h4><ul><li>Diamond Casino</li><li>Cayo Perico</li><li>Vender negócios</li><li>Cassino de novo se o cofre reabriu</li></ul></div>
+      <div class="block"><div class="tag">4 horas</div><h4>Sessão mista</h4><ul><li>Cayo</li><li>Cassino</li><li>Bunker + Boate + Laboratório (venda)</li><li>Golpe do Juízo Final se o grupo topar</li></ul></div>
+      <div class="block"><div class="tag">6 horas</div><h4>Grind longo</h4><ul><li>2x Cayo</li><li>2x Cassino</li><li>Todos os negócios vendidos ao menos 1x</li><li>Missões do Terrorbyte nos intervalos</li></ul></div>
+      <div class="block"><div class="tag">8–12 horas</div><h4>Maratona</h4><ul><li>Alternar Cayo/Cassino a cada cooldown</li><li>Vender negócios sempre que encherem</li><li>Pausas para reabastecer suprimentos manualmente</li><li>Fechar com Contratos de Cliente do Auto Shop</li></ul></div>
+    </div>
+  </section>
+
+  <section class="tight" id="cooldowns">
+    <div class="eyebrow">Referência</div>
+    <h2 class="section-title"><span>Cooldowns</span></h2>
+    <div class="table-scroll">
+    <table class="rank-table">
+      <thead><tr><th>Atividade</th><th>Cooldown aproximado</th><th>O que fazer enquanto isso</th></tr></thead>
+      <tbody>
+        <tr><td>Cayo Perico</td><td>Curto, dá para emendar com outra atividade</td><td>Vender negócios, missão do Terrorbyte</td></tr>
+        <tr><td>Diamond Casino</td><td>Precisa esperar o cofre reabrir</td><td>Cayo Perico, vender negócios</td></tr>
+        <tr><td>Golpe do Juízo Final</td><td>Pode repetir na sequência com o grupo</td><td>Preparar próximo ato enquanto discutem estratégia</td></tr>
+        <tr><td>Cluckin' Bell Farm Raid</td><td>Curto</td><td>Cayo ou venda de negócio</td></tr>
+        <tr><td>Bunker / Boate / Laboratório</td><td>Produção contínua até encher o estoque</td><td>Golpes e vendas de outros negócios</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="section-desc" style="margin-top:20px;">Regra geral: nunca fique parado esperando um cooldown — sempre tenha uma segunda atividade pronta para preencher o intervalo.</p>
+  </section>
+
+  <section id="veiculos">
+    <div class="eyebrow">Capítulo complementar</div>
+    <h2 class="section-title">Veículos <span>Essenciais</span></h2>
+    <div class="table-scroll">
+    <table class="rank-table">
+      <thead><tr><th>Pos.</th><th>Veículo</th><th>Utilidade</th><th>Vale a pena?</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>Oppressor MK II</td><td>Deslocamento rápido em quase toda missão/preparação</td><td class="yes">Sim, cedo ou tarde</td></tr>
+        <tr><td>2</td><td>Kosatka</td><td>Base do Cayo Perico</td><td class="yes">Obrigatório</td></tr>
+        <tr><td>3</td><td>Sparrow</td><td>Alternativa aérea barata</td><td class="yes">Sim</td></tr>
+        <tr><td>4</td><td>Terrorbyte</td><td>Hub de missões e gerenciamento remoto</td><td class="yes">Sim</td></tr>
+        <tr><td>5</td><td>Duke O'Death / carro de combate</td><td>Sobrevivência em free roam</td><td class="yes">Opcional, útil</td></tr>
+        <tr><td>6</td><td>Deluxo</td><td>Veículo voador anfíbio versátil e barato</td><td class="yes">Bom custo-benefício</td></tr>
+        <tr><td>7</td><td>Veículos de corrida (para eventos bonificados)</td><td>Renda extra em semanas de evento</td><td>Depende do bônus</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </section>
+
+  <section class="tight" id="propriedades">
+    <div class="eyebrow">Capítulo complementar</div>
+    <h2 class="section-title">Melhores <span>Propriedades</span></h2>
+    <div class="cards-grid">
+      <div class="card"><h3>Melhor Bunker</h3><p>A localização em si importa pouco no lucro — priorize preço mais baixo disponível e invista a diferença em upgrades de equipamento e staff.</p></div>
+      <div class="card"><h3>Melhor Boate</h3><p>Escolha pela proximidade de outros imóveis que você já usa bastante, já que você vai visitar o escritório de gerência com frequência.</p></div>
+      <div class="card"><h3>Melhor Arcade</h3><p>Localizações mais centrais reduzem o deslocamento até o Cassino — prioridade quando o preço for parecido.</p></div>
+      <div class="card"><h3>Melhor Agência</h3><p>Novamente, preço mais baixo primeiro — o valor está na função (Golpe do Juízo Final, Contrato Dr. Dre), não na estética.</p></div>
+      <div class="card"><h3>Melhor Hangar</h3><p>Prefira hangares próximos de aeroportos maiores para reduzir tempo de voo nas entregas.</p></div>
+      <div class="card"><h3>Melhor Auto Shop</h3><p>Compre o mais barato — a diferença de localização não compensa o custo extra para a maioria dos jogadores.</p></div>
+    </div>
+  </section>
+
+  <section id="erros">
+    <div class="eyebrow">Capítulo 07</div>
+    <h2 class="section-title">Erros que <span>Custam Milhões</span></h2>
+    <div class="skip-grid">
+      <div class="skip-item"><span class="x">✕</span> Deixar negócios com estoque cheio parado (produção trava)</div>
+      <div class="skip-item"><span class="x">✕</span> Comprar Boate antes de qualquer outro negócio</div>
+      <div class="skip-item"><span class="x">✕</span> Gastar em upgrades estéticos antes dos funcionais</div>
+      <div class="skip-item"><span class="x">✕</span> Fazer Cayo com Tequila sem considerar cancelar</div>
+      <div class="skip-item"><span class="x">✕</span> Matar todos os guardas no Cayo em vez de rota direta</div>
+      <div class="skip-item"><span class="x">✕</span> Escolher abordagem Aggressive no Cassino sem necessidade</div>
+      <div class="skip-item"><span class="x">✕</span> Ignorar os bônus semanais ao planejar a rotina</div>
+      <div class="skip-item"><span class="x">✕</span> Comprar Oppressor MK II antes de ter negócios rodando</div>
+      <div class="skip-item"><span class="x">✕</span> Farmar golpes clássicos depois de já ter Cayo/Cassino liberados</div>
+      <div class="skip-item"><span class="x">✕</span> Esquecer de reabastecer suprimentos do bunker manualmente</div>
+      <div class="skip-item"><span class="x">✕</span> Comprar veículos de combate caros sem usar PvP regularmente</div>
+      <div class="skip-item"><span class="x">✕</span> Vender negócio sozinho quando podia pedir ajuda de amigo (menos risco)</div>
+      <div class="skip-item"><span class="x">✕</span> Ignorar o registro de Contratos de Cliente do Auto Shop</div>
+      <div class="skip-item"><span class="x">✕</span> Fazer Pacific Standard como farm repetitivo</div>
+      <div class="skip-item"><span class="x">✕</span> Não usar CEO/MC para acessar descontos de veículos</div>
+      <div class="skip-item"><span class="x">✕</span> Comprar todos os negócios de uma vez sem conseguir gerenciar todos</div>
+      <div class="skip-item"><span class="x">✕</span> Ignorar upgrade de staff que reduz tempo de produção</div>
+      <div class="skip-item"><span class="x">✕</span> Deixar de checar o painel semanal antes de logar</div>
+      <div class="skip-item"><span class="x">✕</span> Fazer o Cassino em grupo sem combinar a abordagem antes</div>
+      <div class="skip-item"><span class="x">✕</span> Gastar recompensa de golpe em itens cosméticos cedo demais</div>
+    </div>
+    <p class="section-desc" style="margin-top:24px;">A lista completa de armadilhas muda com cada atualização — o padrão geral é sempre o mesmo: gastar tempo ou dinheiro em algo que não aumenta seu lucro por hora.</p>
+  </section>
+
+  <section class="tight" id="mitos">
+    <div class="eyebrow">Desmistificando</div>
+    <h2 class="section-title"><span>Mitos</span> do GTA Online</h2>
+    <div class="accordion">
+      <details class="acc-item"><summary>"O Cassino morreu / não vale mais a pena"<span></span></summary><div class="acc-body">Falso. Continua entre as atividades de maior lucro por hora do jogo quando feito em grupo coordenado com a abordagem Big Con e bom alvo (Arte ou evento de Diamantes).</div></details>
+      <details class="acc-item"><summary>"Hangar dá muito dinheiro"<span></span></summary><div class="acc-body">Rende bem menos por hora que bunker, laboratório de ácido ou Cayo. É um negócio complementar, não prioritário.</div></details>
+      <details class="acc-item"><summary>"Metanfetamina é melhor que Cocaína/Ácido"<span></span></summary><div class="acc-body">Os negócios legados de contrabando (Metanfetamina, Cocaína, Documentos, Ferro-Velho) rendem menos por hora que o Laboratório de Ácido e o Bunker atualizados — valem mais para quem já os possui de antes do que como nova compra.</div></details>
+      <details class="acc-item"><summary>"Cayo Perico não compensa mais depois do corte de pagamento"<span></span></summary><div class="acc-body">Mesmo após ajustes de balanceamento ao longo dos anos, o Cayo permanece no topo do ranking de lucro por hora solo — é ainda a melhor opção para quem joga sozinho.</div></details>
+      <details class="acc-item"><summary>"Preciso do Oppressor MK II logo no início"<span></span></summary><div class="acc-body">Não. Sem negócios ativos, não há "tempo de deslocamento" relevante para economizar. Ele se paga melhor depois que sua rotina já envolve muitas preparações e vendas.</div></details>
+      <details class="acc-item"><summary>"Abordagem Aggressive no Cassino rende mais porque é mais rápida"<span></span></summary><div class="acc-body">Na prática costuma reduzir o lucro líquido pelo custo de munição, veículos e reinícios após morte — Big Con costuma ser mais lucrativo por hora, mesmo levando o mesmo tempo ou pouco mais.</div></details>
+      <details class="acc-item"><summary>"Golpes clássicos ainda são a melhor forma de ganhar dinheiro"<span></span></summary><div class="acc-body">Eram a melhor opção nos primeiros anos do jogo, mas hoje rendem bem menos por hora que Cayo, Cassino e os negócios modernos.</div></details>
+      <details class="acc-item"><summary>"Só dá para ficar rico jogando em grupo"<span></span></summary><div class="acc-body">Falso — o Cayo Perico sozinho já sustenta uma progressão sólida para quem joga solo, complementado por bunker e laboratório de ácido.</div></details>
+    </div>
+  </section>
+
+  <section id="comparacoes">
+    <div class="eyebrow">Capítulo complementar</div>
+    <h2 class="section-title"><span>Comparações</span></h2>
+    <div class="vs-row"><div class="vs-card"><h4>Oppressor MK II</h4><p>Mais caro, mísseis teleguiados, mais veloz, ótimo para combate e deslocamento.</p></div><div class="vs-mid">VS</div><div class="vs-card"><h4>Sparrow</h4><p>Muito mais barato, sem armamento pesado, ótimo custo-benefício para apenas se deslocar.</p></div></div>
+    <div class="vs-row"><div class="vs-card"><h4>Boate</h4><p>Multiplica a eficiência de vários negócios já existentes através de gerentes.</p></div><div class="vs-mid">VS</div><div class="vs-card"><h4>Bunker</h4><p>Produção própria de armas, base sólida como primeiro negócio passivo.</p></div></div>
+    <div class="vs-row"><div class="vs-card"><h4>Diamond Casino</h4><p>Maior lucro por hora em grupo, mas exige coordenação de 2–4 jogadores.</p></div><div class="vs-mid">VS</div><div class="vs-card"><h4>Cayo Perico</h4><p>Melhor opção solo, mais rápido para repetir, não depende de terceiros.</p></div></div>
+    <div class="vs-row"><div class="vs-card"><h4>Hangar</h4><p>Rende menos por hora, exige mais tempo de voo por entrega.</p></div><div class="vs-mid">VS</div><div class="vs-card"><h4>Laboratório de Ácido</h4><p>Ciclo de produção mais rápido e melhor lucro por tempo investido.</p></div></div>
+    <div class="vs-row"><div class="vs-card"><h4>Agência</h4><p>Abre o Golpe do Juízo Final e o Contrato do Dr. Dre — foco em desbloqueio.</p></div><div class="vs-mid">VS</div><div class="vs-card"><h4>Auto Shop</h4><p>Renda via Contratos de Cliente e customização de veículos — foco em variedade.</p></div></div>
+  </section>
+
+  <section class="tight" id="tops">
+    <div class="eyebrow">Referência rápida</div>
+    <h2 class="section-title">Tops <span>2026</span></h2>
+    <div class="cards-grid">
+      <div class="card"><h3>Top golpes</h3><p>Cayo Perico, Diamond Casino, Cluckin' Bell Farm Raid, Golpe do Juízo Final, Pacific Standard</p></div>
+      <div class="card"><h3>Top veículos</h3><p>Oppressor MK II, Kosatka, Sparrow, Terrorbyte, Deluxo</p></div>
+      <div class="card"><h3>Top negócios</h3><p>Bunker, Boate, Laboratório de Ácido, Agência, Terrorbyte</p></div>
+      <div class="card"><h3>Top propriedades</h3><p>Kosatka, Bunker próprio, Arcade, Agência, Boate</p></div>
+      <div class="card"><h3>Top formas de ganhar dinheiro</h3><p>Cayo Perico solo, Diamond Casino em grupo, rotação de negócios, Cluckin' Bell Raid, semanas de bônus 2x/3x</p></div>
+      <div class="card"><h3>Top desperdícios</h3><p>Golpes clássicos como farm, Hangar cedo demais, decoração antes de upgrades funcionais, abordagem Aggressive sem necessidade, Oppressor MK II sem negócios ativos</p></div>
+    </div>
+  </section>
+
+  <section id="calculadora">
+    <div class="eyebrow">Ferramenta</div>
+    <h2 class="section-title">Calculadora de <span>Lucro</span></h2>
+    <p class="section-desc">Insira sua rotina real para estimar quanto tempo falta até cada marco de patrimônio.</p>
+    <div class="calc-box">
+      <div class="calc-inputs">
+        <label>Horas por dia</label>
+        <input type="number" id="calcHoras" value="2" min="0" step="0.5">
+        <label>Dias por semana</label>
+        <input type="number" id="calcDias" value="5" min="0" max="7" step="1">
+        <label>Lucro médio por hora (GTA$)</label>
+        <input type="number" id="calcLucro" value="700000" min="0" step="10000">
+      </div>
+      <div class="calc-results">
+        <div class="result-row"><span>Lucro semanal</span><b id="rSemanal">—</b></div>
+        <div class="result-row"><span>Lucro mensal</span><b id="rMensal">—</b></div>
+        <div class="result-row"><span>Lucro semestral</span><b id="rSemestral">—</b></div>
+        <div class="result-row"><span>Lucro anual</span><b id="rAnual">—</b></div>
+        <div class="goal-grid">
+          <div class="goal-card"><div class="goal-name">$100M</div><div class="goal-time" id="g100M">—</div></div>
+          <div class="goal-card"><div class="goal-name">$500M</div><div class="goal-time" id="g500M">—</div></div>
+          <div class="goal-card"><div class="goal-name">$1B</div><div class="goal-time" id="g1B">—</div></div>
+          <div class="goal-card"><div class="goal-name">$2B</div><div class="goal-time" id="g2B">—</div></div>
+          <div class="goal-card"><div class="goal-name">$5B</div><div class="goal-time" id="g5B">—</div></div>
+          <div class="goal-card"><div class="goal-name">$10B</div><div class="goal-time" id="g10B">—</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="tight" id="checklist">
+    <div class="eyebrow">Ferramenta</div>
+    <h2 class="section-title"><span>Checklist</span> de Progresso</h2>
+    <p class="section-desc">Marque o que você já possui — o guia calcula automaticamente qual deveria ser sua próxima compra.</p>
+    <div class="checklist-grid" id="checklistGrid">
+      <label class="check-card"><input type="checkbox" data-item="kosatka"><span>Kosatka</span></label>
+      <label class="check-card"><input type="checkbox" data-item="bunker"><span>Bunker</span></label>
+      <label class="check-card"><input type="checkbox" data-item="agencia"><span>Agência</span></label>
+      <label class="check-card"><input type="checkbox" data-item="boate"><span>Boate</span></label>
+      <label class="check-card"><input type="checkbox" data-item="acidlab"><span>Laboratório de Ácido</span></label>
+      <label class="check-card"><input type="checkbox" data-item="arcade"><span>Arcade (Cassino)</span></label>
+      <label class="check-card"><input type="checkbox" data-item="terrorbyte"><span>Terrorbyte</span></label>
+      <label class="check-card"><input type="checkbox" data-item="mk2"><span>Oppressor MK II</span></label>
+      <label class="check-card"><input type="checkbox" data-item="sparrow"><span>Sparrow</span></label>
+    </div>
+    <div class="checklist-result" id="checklistResult">Marque os itens acima para ver sua próxima meta recomendada.</div>
+  </section>
+
+  <section id="roadmap">
+    <div class="eyebrow">Capítulo 06</div>
+    <h2 class="section-title">Roadmap <span>até Bilionário</span></h2>
+    <div class="timeline">
+      <div class="tl-item"><div class="range">Iniciante</div><h4>$0 – $5M</h4><p>Foco total em desbloquear a Kosatka e começar a rodar Cayo Perico regularmente.</p></div>
+      <div class="tl-item"><div class="range">Intermediário</div><h4>$5M – $30M</h4><p>Construir a base passiva: Bunker, Agência, Boate e Laboratório de Ácido rodando ao mesmo tempo, intercalados com Cayo.</p></div>
+      <div class="tl-item"><div class="range">Avançado</div><h4>$30M – $100M</h4><p>Formar grupo fixo para Diamond Casino, comprar Arcade, otimizar rotina para não deixar negócio parado.</p></div>
+      <div class="tl-item"><div class="range">Veterano</div><h4>$100M – $500M</h4><p>Investir em conveniência (Oppressor MK II, Sparrow), diversificar com Auto Shop e Contratos de Cliente.</p></div>
+      <div class="tl-item"><div class="range">Bilionário</div><h4>$500M+</h4><p>Rotina já otimizada; dinheiro deixa de ser o gargalo — o foco vira colecionar veículos, propriedades de luxo e itens raros.</p></div>
+    </div>
+  </section>
+
+  <section class="tight" id="faq">
+    <div class="eyebrow">Capítulo 08</div>
+    <h2 class="section-title">Perguntas <span>Frequentes</span></h2>
+    <div class="accordion">
+      <details class="acc-item"><summary>Qual a forma mais rápida de ganhar dinheiro sozinho?</summary><div class="acc-body">Cayo Perico, de forma consistente, é a atividade solo com melhor lucro por hora do jogo.</div></details>
+      <details class="acc-item"><summary>Qual a melhor forma de ganhar dinheiro em dupla?</summary><div class="acc-body">Alternar Diamond Casino com Cayo Perico, vendendo negócios passivos nos intervalos.</div></details>
+      <details class="acc-item"><summary>Vale a pena comprar todos os negócios de uma vez?</summary><div class="acc-body">Não. Compre na ordem sugerida no Capítulo 02 — comprar tudo de uma vez sem conseguir gerenciar gera desperdício de estoque parado.</div></details>
+      <details class="acc-item"><summary>Preciso de grupo fixo para o Cassino?</summary><div class="acc-body">Não é obrigatório, mas o lucro por hora melhora muito com um grupo que já sabe a rotina, especialmente na abordagem Big Con.</div></details>
+      <details class="acc-item"><summary>Golpes clássicos ainda valem a pena em 2026?</summary><div class="acc-body">Só como forma de desbloquear conteúdo ou se divertir — o lucro por hora é bem inferior ao Cayo e ao Cassino.</div></details>
+      <details class="acc-item"><summary>Qual o primeiro negócio que devo comprar?</summary><div class="acc-body">Depois da Kosatka, o Bunker é o melhor primeiro negócio passivo.</div></details>
+      <details class="acc-item"><summary>Vale a pena comprar Oppressor MK II logo no início?</summary><div class="acc-body">Não. Ele economiza tempo de deslocamento, mas isso só importa quando você já tem várias atividades para alternar.</div></details>
+      <details class="acc-item"><summary>Qual alvo escolher no Cayo Perico?</summary><div class="acc-body">Diamante Rosa e Títulos ao Portador são os melhores alvos principais fora de eventos especiais; evite continuar se sair Tequila.</div></details>
+      <details class="acc-item"><summary>Big Con, Silent ou Aggressive no Cassino?</summary><div class="acc-body">Big Con para a maioria dos grupos — mais fácil e com maior taxa de sucesso.</div></details>
+      <details class="acc-item"><summary>Hangar ou Laboratório de Ácido?</summary><div class="acc-body">Laboratório de Ácido, pelo ciclo de produção mais rápido e menor tempo de deslocamento.</div></details>
+      <details class="acc-item"><summary>Preciso de amigos para ficar rico no GTA Online?</summary><div class="acc-body">Não é obrigatório — o Cayo Perico sozinho sustenta uma progressão sólida mesmo jogando solo.</div></details>
+      <details class="acc-item"><summary>O que fazer durante o cooldown do Cayo?</summary><div class="acc-body">Vender negócios passivos ou rodar missões do Terrorbyte.</div></details>
+      <details class="acc-item"><summary>Vale a pena comprar Sparrow se já tenho Oppressor MK II?</summary><div class="acc-body">É opcional — o Sparrow serve mais como alternativa econômica do que como upgrade sobre o MK II.</div></details>
+      <details class="acc-item"><summary>Como sei se um bônus semanal muda minha prioridade?</summary><div class="acc-body">Confira sempre o painel de eventos dentro do jogo antes de montar a rotina do dia — veja o Capítulo 09.</div></details>
+      <details class="acc-item"><summary>Boate vale a pena sem outros negócios?</summary><div class="acc-body">Não — ela existe para multiplicar a eficiência de negócios que você já possui.</div></details>
+      <details class="acc-item"><summary>Qual a diferença entre renda ativa e passiva?</summary><div class="acc-body">Renda ativa exige você jogando na hora (golpes, missões); renda passiva produz sozinha em segundo plano (negócios).</div></details>
+      <details class="acc-item"><summary>Quanto tempo leva para chegar a $100M?</summary><div class="acc-body">Depende totalmente da sua rotina de horas — use a calculadora do guia para estimar com seus próprios números.</div></details>
+      <details class="acc-item"><summary>Vale a pena o Golpe do Juízo Final?</summary><div class="acc-body">Sim, especialmente com um grupo experiente, mas exige mais tempo total do que Cayo ou Cassino para o mesmo lucro.</div></details>
+      <details class="acc-item"><summary>Auto Shop é uma boa fonte de renda principal?</summary><div class="acc-body">Não é a principal, mas complementa bem a rotina com Contratos de Cliente de curta duração.</div></details>
+      <details class="acc-item"><summary>Preciso comprar todas as propriedades no local mais caro?</summary><div class="acc-body">Não — na maioria dos negócios, a localização não altera o lucro, apenas a conveniência de deslocamento.</div></details>
+    </div>
+  </section>
+
+  <section class="tight" id="atualizacoes">
+    <div class="eyebrow">Capítulo 09</div>
+    <h2 class="section-title">Atualizações da <span>Rockstar</span></h2>
+    <p class="section-desc">A Rockstar mantém o GTA Online vivo com eventos e bônus semanais — normalmente 2x ou 3x GTA$/RP em um golpe, negócio ou modo específico, além de descontos em veículos. Esses bônus são temporários e devem ser tratados como multiplicadores sobre a base deste guia, não como mudança permanente de estratégia.</p>
+    <div class="cards-grid">
+      <div class="card"><h3>Como reagir a um bônus</h3><p>Se o bônus for em algo que você já faz normalmente (Cayo, Cassino, um negócio específico), priorize-o naquela semana. Se for em algo fora da sua rotina, avalie se o ganho compensa o tempo de adaptação.</p></div>
+      <div class="card"><h3>Onde conferir</h3><p>O próprio jogo mostra os eventos da semana no menu de eventos/notícias ao entrar — sempre confira antes de montar sua sessão.</p></div>
+      <div class="card"><h3>Cortes de pagamento</h3><p>Ao longo dos anos a Rockstar já ajustou (para cima e para baixo) o pagamento-base de golpes específicos, geralmente compensando com bônus semanais de "primeira conclusão". Fique atento a notas de atualização quando um golpe específico parecer render menos do que este guia descreve.</p></div>
+    </div>
+  </section>
+
+  <section class="tight" id="conclusao">
+    <div class="eyebrow">Capítulo 10</div>
+    <h2 class="section-title"><span>Conclusão</span></h2>
+    <ol class="priority-list">
+      <li>Cayo Perico (solo)</li>
+      <li>Diamond Casino (dupla/grupo)</li>
+      <li>Bunker</li>
+      <li>Boate</li>
+      <li>Laboratório de Ácido</li>
+      <li>Agência (Contrato do Dr. Dre)</li>
+      <li>Terrorbyte (Serviços de Cliente)</li>
+      <li>Demais golpes e negócios</li>
+    </ol>
+    <p style="color:var(--muted); margin-top:30px; font-size:15px; max-width:680px;">Não existe atalho mágico: existe sistema. Combine renda ativa de alto lucro (Cayo, Cassino) com uma base passiva que nunca para de produzir (Bunker, Boate, Laboratório), evite os erros do Capítulo 07, e ajuste sua rotina toda semana conforme os bônus da Rockstar. Siga essa lógica e o resto é questão de tempo de tela.</p>
+  </section>
+
+  <footer>
+    <span class="brand">GUIA_DE_GRANA // GTA ONLINE</span>
+    <span>Atualizado — Julho 2026</span>
+  </footer>
+
+</div>
+
+<script>
+  // ---- Calculadora ----
+  function fmt(n){
+    if(!isFinite(n)) return '—';
+    return 'R$? '.replace('R$? ','') + n.toLocaleString('pt-BR',{maximumFractionDigits:0});
+  }
+  function fmtMoney(n){
+    return 'GTA$ ' + Math.round(n).toLocaleString('pt-BR');
+  }
+  function calcAll(){
+    var horas = parseFloat(document.getElementById('calcHoras').value)||0;
+    var dias = parseFloat(document.getElementById('calcDias').value)||0;
+    var lucro = parseFloat(document.getElementById('calcLucro').value)||0;
+    var porHora = lucro;
+    var semanal = porHora*horas*dias;
+    var mensal = semanal*4.345;
+    var semestral = mensal*6;
+    var anual = mensal*12;
+    document.getElementById('rSemanal').textContent = fmtMoney(semanal);
+    document.getElementById('rMensal').textContent = fmtMoney(mensal);
+    document.getElementById('rSemestral').textContent = fmtMoney(semestral);
+    document.getElementById('rAnual').textContent = fmtMoney(anual);
+
+    var goals = {g100M:100e6,g500M:500e6,g1B:1e9,g2B:2e9,g5B:5e9,g10B:10e9};
+    for(var key in goals){
+      var el = document.getElementById(key);
+      if(semanal<=0){ el.textContent='—'; continue; }
+      var weeks = goals[key]/semanal;
+      if(weeks < 4.345){
+        el.textContent = Math.ceil(weeks*7) + ' dias';
+      } else if(weeks < 52){
+        el.textContent = Math.ceil(weeks/4.345) + ' meses';
+      } else {
+        el.textContent = (weeks/52).toFixed(1) + ' anos';
+      }
+    }
+  }
+  ['calcHoras','calcDias','calcLucro'].forEach(function(id){
+    document.getElementById(id).addEventListener('input', calcAll);
+  });
+  calcAll();
+
+  // ---- Checklist ----
+  var order = ['kosatka','bunker','agencia','boate','acidlab','arcade','terrorbyte','mk2','sparrow'];
+  var labels = {
+    kosatka:'Kosatka (Cayo Perico)', bunker:'Bunker', agencia:'Agência',
+    boate:'Boate', acidlab:'Laboratório de Ácido', arcade:'Arcade (Cassino)',
+    terrorbyte:'Terrorbyte', mk2:'Oppressor MK II', sparrow:'Sparrow'
+  };
+  var checkboxes = document.querySelectorAll('#checklistGrid input[type=checkbox]');
+  function loadChecklist(){
+    try{
+      var saved = JSON.parse(localStorage.getItem('gtaChecklist')||'{}');
+      checkboxes.forEach(function(cb){ if(saved[cb.dataset.item]) cb.checked = true; });
+    }catch(e){}
+    updateChecklist();
+  }
+  function updateChecklist(){
+    var state = {};
+    checkboxes.forEach(function(cb){ state[cb.dataset.item] = cb.checked; });
+    try{ localStorage.setItem('gtaChecklist', JSON.stringify(state)); }catch(e){}
+    var next = order.find(function(item){ return !state[item]; });
+    var resultEl = document.getElementById('checklistResult');
+    if(!next){
+      resultEl.textContent = '✅ Você já tem toda a infraestrutura essencial. Hora de focar em rotina e execução.';
+    } else {
+      resultEl.textContent = '🎯 Sua próxima meta recomendada: ' + labels[next] + '.';
+    }
+  }
+  checkboxes.forEach(function(cb){ cb.addEventListener('change', updateChecklist); });
+  loadChecklist();
+</script>
+
+</body>
+</html>
